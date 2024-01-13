@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cookbook.Domain
+﻿namespace Cookbook.Domain
 {
-    internal class Ingredient
+    public class Ingredient
     {
+        public required int Volume { get; init; }
+        public required UnitType Unit { get; init; }
+        public required string Name { get; init; }
     }
 }

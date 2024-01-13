@@ -1,6 +1,21 @@
 ﻿namespace Cookbook.Domain
 {
-    public class UnitType
+    public enum UnitType
     {
+        kg,
+        dkg,
+        g,
+
+        l,
+        dl,
+        cl,
+        ml,
+
+        piece,
+
+        tableSpoon,
+        teaSpoon,
+        coffeeSpoon,
+        pinch,
     }
 }

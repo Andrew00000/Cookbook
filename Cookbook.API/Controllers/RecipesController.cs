@@ -24,7 +24,9 @@ namespace Cookbook.API.Controllers
 
             await cookbookRepository.CreateAsync(recipe);
 
-            return Created($"/{ApiEndPoints.Recipes.Create}/{recipe.Id}", recipe.MapToResponse()); 
+            var response = recipe.MapToResponse();
+
+            return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
         }
 
         [HttpGet(ApiEndPoints.Recipes.Get)]

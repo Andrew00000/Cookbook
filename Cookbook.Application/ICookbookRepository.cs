@@ -1,4 +1,4 @@
-﻿using Cookbook.Domain;
+﻿using Cookbook.Domain.Models;
 
 namespace Cookbook.Application
 {

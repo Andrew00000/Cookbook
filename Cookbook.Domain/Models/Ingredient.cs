@@ -1,4 +1,4 @@
-﻿namespace Cookbook.Domain
+﻿namespace Cookbook.Domain.Models
 {
     public class Ingredient
     {

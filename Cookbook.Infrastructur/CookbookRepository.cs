@@ -1,5 +1,5 @@
 ﻿using Cookbook.Application;
-using Cookbook.Domain;
+using Cookbook.Domain.Models;
 
 namespace Cookbook.Infrastructur
 {

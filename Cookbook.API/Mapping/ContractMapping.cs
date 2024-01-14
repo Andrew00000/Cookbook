@@ -1,6 +1,6 @@
 ﻿using Cookbook.Contracts.Requests;
 using Cookbook.Contracts.Responses;
-using Cookbook.Domain;
+using Cookbook.Domain.Models;
 
 namespace Cookbook.API.Mapping
 {

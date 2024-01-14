@@ -8,7 +8,6 @@ using System.Linq;
 namespace Cookbook.API.Controllers
 {
     [ApiController]
-    [Route("api")]
     public class RecipesController : ControllerBase
     {
         private readonly ICookbookRepository cookbookRepository;
@@ -18,14 +17,14 @@ namespace Cookbook.API.Controllers
             this.cookbookRepository = cookbookRepository;
         }
 
-        [HttpPost("recipes")]
+        [HttpPost(ApiEndPoints.Recipes.Create)]
         public async Task<IActionResult> Create([FromBody] CreateRecipeRequest request)
         {
             var recipe = request.MapToRecipe();
 
             await cookbookRepository.CreateAsync(recipe);
 
-            return Created($"/api/recipes/{recipe.Id}", recipe.MapToResponse()); 
+            return Created($"/{ApiEndPoints.Recipes.Create}/{recipe.Id}", recipe.MapToResponse()); 
         }
 
         

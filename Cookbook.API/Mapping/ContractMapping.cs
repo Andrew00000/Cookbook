@@ -21,6 +21,21 @@ namespace Cookbook.API.Mapping
             };
         }
 
+        public static Recipe MapToRecipe(this UpdateRecipeRequest request, Guid id)
+        {
+            return new Recipe
+            {
+                Id = id,
+                Title = request.Title,
+                Author = request.Author,
+                Tags = request.Tags,
+                Portions = request.Portions,
+                Calories = request.Calories,
+                Ingredients = request.Ingredients.Select(CreateIngredient),
+                Steps = request.Steps,
+            };
+        }
+
         public static RecipeResponse MapToResponse(this Recipe recipe)
         {
             return new RecipeResponse

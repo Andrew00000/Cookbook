@@ -52,5 +52,20 @@ namespace Cookbook.API.Controllers
 
             return Ok(responses);
         }
+
+        [HttpPut(ApiEndPoints.Recipes.Update)]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody]UpdateRecipeRequest request)
+        {
+            var recipe = request.MapToRecipe(id); 
+            var updated = await cookbookRepository.UpdateByIdAsync(recipe);
+
+            if(!updated)
+            {
+                return NotFound();
+            }
+
+            var response = recipe.MapToResponse();
+            return Ok(response);
+        }
     }
 }

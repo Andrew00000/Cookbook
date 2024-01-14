@@ -10,5 +10,6 @@
         public required IEnumerable<string> Ingredients { get; init; }
         public required IEnumerable<string> Steps { get; init; }
         public IEnumerable<string> Tags { get; init; } = Enumerable.Empty<string>();
+        public required string Slug { get; init; }
     }
 }

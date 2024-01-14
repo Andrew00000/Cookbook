@@ -17,11 +17,17 @@ namespace Cookbook.Infrastructur
             var recipe = recipes.SingleOrDefault(x => x.Id == id);
             return Task.FromResult(recipe);
         }
+
+        public Task<Recipe?> GetBySlugAsync(string slug)
+        {
+            var recipe = recipes.SingleOrDefault(x => x.Slug == slug);
+            return Task.FromResult(recipe);
+        }
+
         public Task<IEnumerable<Recipe>> GetAllAsync()
         {
             return Task.FromResult(recipes.AsEnumerable());
         }
-
 
         public Task<bool> UpdateByIdAsync(Recipe recipe)
         {

@@ -48,6 +48,7 @@ namespace Cookbook.API.Mapping
                 Calories = recipe.Calories,
                 Ingredients = recipe.Ingredients.Select(IngredientToString),
                 Steps = recipe.Steps,
+                Slug = recipe.Slug
             };
         }
 

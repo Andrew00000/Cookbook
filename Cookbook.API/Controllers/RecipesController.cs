@@ -65,6 +65,16 @@ namespace Cookbook.API.Controllers
             return Ok(responses);
         }
 
+        [HttpGet(ApiEndPoints.Recipes.GetAllWithTag)]
+        public async Task<IActionResult> GetAllWithTag([FromRoute] string tag)
+        {
+            var recipes = await cookbookRepository.GetAllAsync(); //move filtering to db?
+
+            var responses = recipes.Where(x => x.Tags.Contains(tag)).Select(x => x.MapToResponse());
+
+            return Ok(responses);
+        }
+
         [HttpPut(ApiEndPoints.Recipes.Update)]
         public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody]UpdateRecipeRequest request)
         {

@@ -55,6 +55,16 @@ namespace Cookbook.API.Controllers
             return Ok(responses);
         }
 
+        [HttpGet(ApiEndPoints.Recipes.GetAllTitles)]
+        public async Task<IActionResult> GetAllTitles()
+        {
+            var recipes = await cookbookRepository.GetAllAsync();
+
+            var responses = recipes.Select(x => x.Title);
+
+            return Ok(responses);
+        }
+
         [HttpPut(ApiEndPoints.Recipes.Update)]
         public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody]UpdateRecipeRequest request)
         {

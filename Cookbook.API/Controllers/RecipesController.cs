@@ -34,7 +34,7 @@ namespace Cookbook.API.Controllers
 
             var result = await cookbookRepository.CreateAsync(recipe);
 
-            return Ok(recipe); //should be recipeResponse
+            return Created($"/api/recipes/{recipe.Id}", recipe); //should be recipeResponse
         }
 
         private Ingredient CreateIngredient(string rawIngredient)

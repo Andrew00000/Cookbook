@@ -27,7 +27,6 @@ namespace Cookbook.API.Controllers
             return Created($"/{ApiEndPoints.Recipes.Create}/{recipe.Id}", recipe.MapToResponse()); 
         }
 
-        
         [HttpGet(ApiEndPoints.Recipes.Get)]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
@@ -40,6 +39,16 @@ namespace Cookbook.API.Controllers
 
             var response = recipe.MapToResponse();
             return Ok(response);
+        }
+
+        [HttpGet(ApiEndPoints.Recipes.GetAll)]
+        public async Task<IActionResult> GetAll()
+        {
+            var recipes = await cookbookRepository.GetAllAsync();
+
+            var responses = recipes.MapToResponse();
+
+            return Ok(responses);
         }
     }
 }

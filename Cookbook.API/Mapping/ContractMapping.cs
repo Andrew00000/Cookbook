@@ -36,6 +36,9 @@ namespace Cookbook.API.Mapping
             };
         }
 
+        public static RecipesResponse MapToResponse(this IEnumerable<Recipe> recipes)
+            => new(){ Recipes = recipes.Select(MapToResponse) };
+
         private static Ingredient CreateIngredient(string rawIngredient)
         {
             var splitIngredient = rawIngredient.Split(' ');

@@ -21,6 +21,21 @@ namespace Cookbook.API.Mapping
             };
         }
 
+        public static RecipeResponse MapToResponse(this Recipe recipe)
+        {
+            return new RecipeResponse
+            {
+                Id = recipe.Id,
+                Title = recipe.Title,
+                Author = recipe.Author,
+                Tags = recipe.Tags,
+                Portions = recipe.Portions,
+                Calories = recipe.Calories,
+                Ingredients = recipe.Ingredients.Select(IngredientToString),
+                Steps = recipe.Steps,
+            };
+        }
+
         private static Ingredient CreateIngredient(string rawIngredient)
         {
             var splitIngredient = rawIngredient.Split(' ');
@@ -40,21 +55,6 @@ namespace Cookbook.API.Mapping
             {
                 throw new ArgumentException($"Invalid ingredient: {rawIngredient}");
             }
-        }
-
-        public static RecipeResponse MapToResponse(this Recipe recipe)
-        {
-            return new RecipeResponse
-            {
-                Id = recipe.Id,
-                Title = recipe.Title,
-                Author = recipe.Author,
-                Tags = recipe.Tags,
-                Portions = recipe.Portions,
-                Calories = recipe.Calories,
-                Ingredients = recipe.Ingredients.Select(IngredientToString),
-                Steps = recipe.Steps,
-            };
         }
 
         private static string IngredientToString(Ingredient ingredient)

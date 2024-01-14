@@ -54,7 +54,7 @@ namespace Cookbook.API.Controllers
         }
 
         [HttpPut(ApiEndPoints.Recipes.Update)]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody]UpdateRecipeRequest request)
+        public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody]UpdateRecipeRequest request)
         {
             var recipe = request.MapToRecipe(id); 
             var updated = await cookbookRepository.UpdateByIdAsync(recipe);
@@ -66,6 +66,19 @@ namespace Cookbook.API.Controllers
 
             var response = recipe.MapToResponse();
             return Ok(response);
+        }
+
+        [HttpDelete(ApiEndPoints.Recipes.Delete)]
+        public async Task<IActionResult> Delete([FromRoute]Guid id)
+        {
+            var deleted = await cookbookRepository.DeleteByIdAsync(id);
+
+            if(!deleted)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
     }
 }

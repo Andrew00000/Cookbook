@@ -28,5 +28,18 @@ namespace Cookbook.API.Controllers
         }
 
         
+        [HttpGet(ApiEndPoints.Recipes.Get)]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+            var recipe = await cookbookRepository.GetByIdAsync(id);
+
+            if (recipe is null)
+            {
+                return NotFound();
+            }
+
+            var response = recipe.MapToResponse();
+            return Ok(response);
+        }
     }
 }

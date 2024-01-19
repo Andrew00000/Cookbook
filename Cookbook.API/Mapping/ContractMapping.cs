@@ -58,13 +58,13 @@ namespace Cookbook.API.Mapping
         private static Ingredient CreateIngredient(string rawIngredient)
         {
             var splitIngredient = rawIngredient.Split(' ');
-            var volume = int.Parse(splitIngredient[0]);
+            var amount = int.Parse(splitIngredient[0]);
             var name = splitIngredient[2];
             if (Enum.TryParse<UnitType>(splitIngredient[1], ignoreCase: true, out UnitType unit))
             {
                 return new Ingredient
                 {
-                    Volume = volume,
+                    Amount = amount,
                     Unit = unit,
                     Name = name
                 }
@@ -77,6 +77,6 @@ namespace Cookbook.API.Mapping
         }
 
         private static string IngredientToString(Ingredient ingredient)
-            => $"{ingredient.Volume} {ingredient.Unit} {ingredient.Name}";
+            => $"{ingredient.Amount} {ingredient.Unit} {ingredient.Name}";
     }
 }

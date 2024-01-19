@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cookbook.Infrastructur
 {
-    public static class DependencyInjection
+    public static class InfrastructureServiceCollectionExtensions
     {
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
@@ -11,6 +11,5 @@ namespace Cookbook.Infrastructur
 
             return services;
         }
-
     }
 }

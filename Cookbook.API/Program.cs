@@ -1,3 +1,4 @@
+using Cookbook.Application;
 using Cookbook.Infrastructur;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDatabase();
 builder.Services.AddPersistence();
 
 var app = builder.Build();

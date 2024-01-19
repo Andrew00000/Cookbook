@@ -1,55 +1,101 @@
 ﻿using Cookbook.Application;
+using Cookbook.Application.Database;
 using Cookbook.Domain.Models;
+using Dapper;
 
 namespace Cookbook.Infrastructur
 {
     public class CookbookRepository : ICookbookRepository
     {
-        private readonly List<Recipe> recipes = new();
-        public Task<bool> CreateAsync(Recipe recipe)
+        private readonly IDbConnectionFactory dbConnectionFactory;
+
+        public CookbookRepository(IDbConnectionFactory dbConnectionFactory)
         {
-            recipes.Add(recipe);
-            return Task.FromResult(true);
+            this.dbConnectionFactory = dbConnectionFactory;
         }
 
-        public Task<Recipe?> GetByIdAsync(Guid id)
+        public async Task<bool> CreateAsync(Recipe recipe)
         {
-            var recipe = recipes.SingleOrDefault(x => x.Id == id);
-            return Task.FromResult(recipe);
-        }
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var transaction = connection.BeginTransaction();
 
-        public Task<Recipe?> GetBySlugAsync(string slug)
-        {
-            var recipe = recipes.SingleOrDefault(x => x.Slug == slug);
-            return Task.FromResult(recipe);
+            var result = await connection.ExecuteAsync(
+                            new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesTable, recipe));
+
+            if (result > 0)
+            {
+                foreach (var ingredient in recipe.Ingredients)
+                {
+                    await connection.ExecuteAsync(
+                            new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesIngredients,
+                            new { recipe.Slug, ingredient.Name, ingredient.Amount, ingredient.Unit }));
+                }
+
+                var index = 1;
+                foreach (var step in recipe.Steps)
+                {
+                    await connection.ExecuteAsync(
+                            new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesSteps,
+                            new { recipe.Slug, Number = index, Description = step }));
+                    index++;
+                }
+
+                foreach (var tag in recipe.Tags)
+                {
+                    await connection.ExecuteAsync(
+                            new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesTags,
+                            new { recipe.Slug, Description = tag }));
+                }
+            }
+
+            transaction.Commit();
+
+            return result > 0;
         }
 
         public Task<IEnumerable<Recipe>> GetAllAsync()
         {
-            return Task.FromResult(recipes.AsEnumerable());
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistsByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistsBySlugAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Recipe?> GetByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Recipe?> GetBySlugAsync(string slug)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<bool> UpdateByIdAsync(Recipe recipe)
         {
-            var recipeIndex = recipes.FindIndex(x => x.Id == recipe.Id);
+            throw new NotImplementedException();
+        }
 
-            if (recipeIndex == -1)
-            {
-                return Task.FromResult(false);
-            }
-
-            recipes[recipeIndex] = recipe;
-
-            return Task.FromResult(true);
+        public Task<bool> UpdateBySlugAsync(Recipe recipe)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<bool> DeleteByIdAsync(Guid id)
         {
-            var removedCount = recipes.RemoveAll(x => x.Id == id);
+            throw new NotImplementedException();
+        }
 
-            var recipeRemoved = removedCount > 0;
-
-            return Task.FromResult(recipeRemoved);
+        public Task<bool> DeleteBySlugAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Cookbook.Application;
 using Cookbook.Application.Database;
 using Cookbook.Domain.Models;
-using Cookbook.Domain.Models;
 using Dapper;
 
 namespace Cookbook.Infrastructur
@@ -21,32 +20,13 @@ namespace Cookbook.Infrastructur
             using var transaction = connection.BeginTransaction();
 
             var result = await connection.ExecuteAsync(
-                            new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesTable, recipe));
+                            new CommandDefinition(SqliteCommandTexts.Create, recipe));
 
             if (result > 0)
             {
-                foreach (var ingredient in recipe.Ingredients)
-                {
-                    await connection.ExecuteAsync(
-                            new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesIngredients,
-                            new { recipe.Slug, ingredient.Name, ingredient.Amount, ingredient.Unit }));
-                }
-
-                var index = 1;
-                foreach (var step in recipe.Steps)
-                {
-                    await connection.ExecuteAsync(
-                            new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesSteps,
-                            new { recipe.Slug, Number = index, Description = step }));
-                    index++;
-                }
-
-                foreach (var tag in recipe.Tags)
-                {
-                    await connection.ExecuteAsync(
-                            new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesTags,
-                            new { recipe.Slug, Description = tag }));
-                }
+                await AttachIngredientsToRecipe(recipe, connection);
+                await AttachStepsToRecipe(recipe, connection);
+                await AttachTagsToRecipe(recipe, connection);
             }
 
             transaction.Commit();
@@ -58,7 +38,7 @@ namespace Cookbook.Infrastructur
         {
             using var connection = await dbConnectionFactory.CreateConnectionAsync();
             var rawRecipes = await connection.QueryAsync(
-                            new CommandDefinition(SqliteCommandTexts.GetAllRecipes)); 
+                            new CommandDefinition(SqliteCommandTexts.GetAll));
 
             if (rawRecipes is null)
             {
@@ -69,48 +49,42 @@ namespace Cookbook.Infrastructur
 
             foreach (var rawRecipe in rawRecipes)
             {
-                var ingredients = ((string)rawRecipe.IngredientsList).Split(", ").Distinct()
-                                        .Select(x => new Ingredient { Amount = int.Parse(x.Split(' ')[0]), 
-                                                                      Unit = (UnitType)int.Parse(x.Split(' ')[1]), 
-                                                                      Name = x.Split(' ')[2]});
-                var steps = ((string)rawRecipe.StepsList).Split(", ").Distinct()
-                                        .Order().Select(x => x.Split(". ")[1]);
-                var tags = ((string)rawRecipe.TagsList).Split(", ").Distinct();
+                var recipe = ParseRecipe(rawRecipe);
 
-                recipes.Add(new Recipe
-                {
-                    Title = rawRecipe.Title,
-                    Author = rawRecipe.Author,
-                    NumberOfPortions = (int)rawRecipe.NumberOfPortions,
-                    Calories = (int)rawRecipe.Calories,
-                    Id = new Guid(rawRecipe.Guid),
-                    Ingredients = ingredients,
-                    Steps = steps,
-                    Tags = tags
-                });
+                recipes.Add(recipe);
             }
 
             return recipes;
         }
 
-        public Task<bool> ExistsByIdAsync(Guid id)
+        public async Task<Recipe?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+
+            var rawRecipe = await connection.QuerySingleOrDefaultAsync(
+                            new CommandDefinition(SqliteCommandTexts.GetById, new { id }));
+
+            if (rawRecipe is null)
+            {
+                return null;
+            }
+
+            return ParseRecipe(rawRecipe);
         }
 
-        public Task<bool> ExistsBySlugAsync(Guid id)
+        public async Task<Recipe?> GetBySlugAsync(string slug)
         {
-            throw new NotImplementedException();
-        }
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
 
-        public Task<Recipe?> GetByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+            var rawRecipe = await connection.QuerySingleOrDefaultAsync(
+                            new CommandDefinition(SqliteCommandTexts.GetBySlug, new { slug }));
 
-        public Task<Recipe?> GetBySlugAsync(string slug)
-        {
-            throw new NotImplementedException();
+            if (rawRecipe is null)
+            {
+                return null;
+            }
+
+            return ParseRecipe(rawRecipe);
         }
 
         public Task<bool> UpdateByIdAsync(Recipe recipe)
@@ -128,8 +102,20 @@ namespace Cookbook.Infrastructur
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteBySlugAsync(Guid id)
+        public Task<bool> DeleteBySlugAsync(string slug)
         {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<string>> GetAllTitles()
+        {
+            //connect this to controller
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<string>> GetAllTitlesWithTag()
+        {
+            //connect this to controller
             throw new NotImplementedException();
         }
 
@@ -146,5 +132,67 @@ namespace Cookbook.Infrastructur
             return await connection.ExecuteScalarAsync<bool>(
                                 new CommandDefinition(SqliteCommandTexts.ExistsBySlug, new { slug }));
         }
+
+        private Recipe ParseRecipe(dynamic rawRecipe)
+        {
+            var ingredients = ParseIngredient(rawRecipe);
+            var steps = ((string)rawRecipe.StepsList).Split(", ").Distinct()
+                                    .Order().Select(x => x.Split(". ")[1]);
+            var tags = ((string)rawRecipe.TagsList).Split(", ").Distinct();
+
+            var recipe = new Recipe
+            {
+                Title = rawRecipe.Title,
+                Author = rawRecipe.Author,
+                NumberOfPortions = (int)rawRecipe.NumberOfPortions,
+                Calories = (int)rawRecipe.Calories,
+                Id = new Guid(rawRecipe.Guid),
+                Ingredients = ingredients,
+                Steps = steps,
+                Tags = tags
+            };
+            return recipe;
+        }
+
+        private IEnumerable<Ingredient> ParseIngredient(dynamic rawRecipe)
+            => ((string)rawRecipe.IngredientsList).Split(", ").Distinct()
+                                    .Select(x => new Ingredient
+                                    {
+                                        Amount = int.Parse(x.Split(' ')[0]),
+                                        Unit = (UnitType)int.Parse(x.Split(' ')[1]),
+                                        Name = x.Split(' ')[2]
+                                    });
+        private async Task AttachTagsToRecipe(Recipe recipe, System.Data.IDbConnection connection)
+        {
+            foreach (var tag in recipe.Tags)
+            {
+                await connection.ExecuteAsync(
+                        new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesTags,
+                        new { recipe.Slug, Description = tag }));
+            }
+        }
+
+        private async Task AttachStepsToRecipe(Recipe recipe, System.Data.IDbConnection connection)
+        {
+            var index = 1;
+            foreach (var step in recipe.Steps)
+            {
+                await connection.ExecuteAsync(
+                        new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesSteps,
+                        new { recipe.Slug, Number = index, Description = step }));
+                index++;
+            }
+        }
+
+        private async Task AttachIngredientsToRecipe(Recipe recipe, System.Data.IDbConnection connection)
+        {
+            foreach (var ingredient in recipe.Ingredients)
+            {
+                await connection.ExecuteAsync(
+                        new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesIngredients,
+                        new { recipe.Slug, ingredient.Name, ingredient.Amount, ingredient.Unit }));
+            }
+        }
+
     }
 }

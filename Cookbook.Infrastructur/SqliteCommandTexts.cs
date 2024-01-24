@@ -87,14 +87,14 @@
                                 Recipes.NumberOfPortions, Recipes.Calories
             """;
 
-        public const string ExistsById = @"SELECT COUNT(1) FROM Recipes WHERE Guid = @id";
-
-        public const string ExistsBySlug = @"SELECT COUNT(1) FROM Recipes WHERE Slug = @slug";
-
         public const string GetAllTitles = @"SELECT Recipes.Title FROM Recipes";
 
         public const string GetAllTitlesWithTag = @"SELECT Recipes.Title FROM Recipes 
                                                     JOIN Tags ON Recipes.Slug = Tags.RecipeSlug
                                                     WHERE Tags.Description = @tag";
+
+        public const string ExistsById = @"SELECT COUNT(1) FROM Recipes WHERE Guid = @id";
+
+        public const string ExistsBySlug = @"SELECT COUNT(1) FROM Recipes WHERE Slug = @slug";
     }
 }

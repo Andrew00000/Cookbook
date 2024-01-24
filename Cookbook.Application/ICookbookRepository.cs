@@ -11,6 +11,7 @@ namespace Cookbook.Application
         Task<Recipe?> GetByIdAsync(Guid id);
         Task<Recipe?> GetBySlugAsync(string slug);
         Task<IEnumerable<string>> GetAllTitlesAsync();
+        Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag);
         Task<bool> UpdateByIdAsync(Recipe recipe);
         Task<bool> UpdateBySlugAsync(Recipe recipe);
         Task<bool> DeleteByIdAsync(Guid id);

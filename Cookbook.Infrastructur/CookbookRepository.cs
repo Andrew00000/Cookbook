@@ -104,8 +104,17 @@ namespace Cookbook.Infrastructur
 
         public async Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag)
         {
-            //connect this to controller
-            throw new NotImplementedException();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+
+            var titles = await connection.QueryAsync<string>(
+                                new CommandDefinition(SqliteCommandTexts.GetAllTitlesWithTag, new { tag }));
+
+            if (titles is null)
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            return titles;
         }
 
         public Task<bool> UpdateByIdAsync(Recipe recipe)

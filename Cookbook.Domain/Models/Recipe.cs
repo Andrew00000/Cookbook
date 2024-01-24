@@ -6,8 +6,7 @@ namespace Cookbook.Domain.Models
     {
         public required Guid Id { get; init; }
         public required string Title { get; set; }
-        public string Author { get; set; } = string.Empty;
-        public required int Portions { get; set; }
+        public required string Author { get; set; }
         public required int NumberOfPortions { get; set; }
         public int Calories { get; set; } = 0;
         public required IEnumerable<Ingredient> Ingredients { get; init; }

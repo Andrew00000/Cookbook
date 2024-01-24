@@ -7,12 +7,12 @@ namespace Cookbook.Application
         Task<bool> CreateAsync(Recipe recipe);
         Task<IEnumerable<Recipe>> GetAllAsync();
         Task<bool> ExistsByIdAsync(Guid id);
-        Task<bool> ExistsBySlugAsync(Guid id);
+        Task<bool> ExistsBySlugAsync(string slug);
         Task<Recipe?> GetByIdAsync(Guid id);
         Task<Recipe?> GetBySlugAsync(string slug);
         Task<bool> UpdateByIdAsync(Recipe recipe);
         Task<bool> UpdateBySlugAsync(Recipe recipe);
         Task<bool> DeleteByIdAsync(Guid id);
-        Task<bool> DeleteBySlugAsync(Guid id);
+        Task<bool> DeleteBySlugAsync(string slug);
     }
 }

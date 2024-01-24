@@ -209,7 +209,7 @@ namespace Cookbook.Infrastructur
                                         Unit = (UnitType)int.Parse(x.Split(' ')[1]),
                                         Name = x.Split(' ')[2]
                                     });
-        private async Task AttachTagsToRecipe(Recipe recipe, System.Data.IDbConnection connection)
+        private async Task AttachTagsToRecipe(Recipe recipe, IDbConnection connection)
         {
             foreach (var tag in recipe.Tags)
             {
@@ -219,7 +219,7 @@ namespace Cookbook.Infrastructur
             }
         }
 
-        private async Task AttachStepsToRecipe(Recipe recipe, System.Data.IDbConnection connection)
+        private async Task AttachStepsToRecipe(Recipe recipe, IDbConnection connection)
         {
             var index = 1;
             foreach (var step in recipe.Steps)
@@ -231,7 +231,7 @@ namespace Cookbook.Infrastructur
             }
         }
 
-        private async Task AttachIngredientsToRecipe(Recipe recipe, System.Data.IDbConnection connection)
+        private async Task AttachIngredientsToRecipe(Recipe recipe, IDbConnection connection)
         {
             foreach (var ingredient in recipe.Ingredients)
             {

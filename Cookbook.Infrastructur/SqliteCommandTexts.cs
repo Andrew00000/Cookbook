@@ -21,5 +21,26 @@
                         INSERT INTO Tags ( RecipeSlug, Description)
                           VALUES (@Slug, @Description);
                         """;
+
+        public const string GetAllRecipes = """
+                        SELECT Recipes.Title, 
+                               Recipes.Author, 
+                               Recipes.NumberOfPortions, 
+                               Recipes.Calories, 
+                               Recipes.Slug, 
+                               Recipes.Guid,
+                               GROUP_CONCAT(Ingredients.Amount || ' ' || 
+                                            Ingredients.Unit || ' ' || 
+                                            Ingredients.Name, ', ') AS IngredientsList,
+                               GROUP_CONCAT(Steps.Number || '. ' || 
+                                            Steps.Description, ', ') AS StepsList,
+                               GROUP_CONCAT(Tags.Description, ', ') AS TagsList
+                        FROM Recipes
+                        JOIN Ingredients ON Recipes.Slug = Ingredients.RecipeSlug
+                        JOIN Steps ON Recipes.Slug = Steps.RecipeSlug
+                        JOIN Tags ON Recipes.Slug = Tags.RecipeSlug
+                        GROUP BY Recipes.Slug, Recipes.Title, Recipes.Author, 
+                                        Recipes.NumberOfPortions, Recipes.Calories
+            """;
     }
 }

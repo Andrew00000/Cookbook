@@ -1,6 +1,7 @@
 ﻿using Cookbook.Application;
 using Cookbook.Application.Database;
 using Cookbook.Domain.Models;
+using Cookbook.Domain.Models;
 using Dapper;
 
 namespace Cookbook.Infrastructur
@@ -53,9 +54,43 @@ namespace Cookbook.Infrastructur
             return result > 0;
         }
 
-        public Task<IEnumerable<Recipe>> GetAllAsync()
+        public async Task<IEnumerable<Recipe>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            var rawRecipes = await connection.QueryAsync(
+                            new CommandDefinition(SqliteCommandTexts.GetAllRecipes)); 
+
+            if (rawRecipes is null)
+            {
+                return Enumerable.Empty<Recipe>();
+            }
+
+            var recipes = new List<Recipe>();
+
+            foreach (var rawRecipe in rawRecipes)
+            {
+                var ingredients = ((string)rawRecipe.IngredientsList).Split(", ").Distinct()
+                                        .Select(x => new Ingredient { Amount = int.Parse(x.Split(' ')[0]), 
+                                                                      Unit = (UnitType)int.Parse(x.Split(' ')[1]), 
+                                                                      Name = x.Split(' ')[2]});
+                var steps = ((string)rawRecipe.StepsList).Split(", ").Distinct()
+                                        .Order().Select(x => x.Split(". ")[1]);
+                var tags = ((string)rawRecipe.TagsList).Split(", ").Distinct();
+
+                recipes.Add(new Recipe
+                {
+                    Title = rawRecipe.Title,
+                    Author = rawRecipe.Author,
+                    NumberOfPortions = (int)rawRecipe.NumberOfPortions,
+                    Calories = (int)rawRecipe.Calories,
+                    Id = new Guid(rawRecipe.Guid),
+                    Ingredients = ingredients,
+                    Steps = steps,
+                    Tags = tags
+                });
+            }
+
+            return recipes;
         }
 
         public Task<bool> ExistsByIdAsync(Guid id)

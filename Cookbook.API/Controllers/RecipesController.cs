@@ -58,19 +58,19 @@ namespace Cookbook.API.Controllers
         [HttpGet(ApiEndPoints.Recipes.GetAllTitles)]
         public async Task<IActionResult> GetAllTitles()
         {
-            var recipes = await cookbookRepository.GetAllAsync();
+            var recipes = await cookbookRepository.GetAllAsync(); //maybe filter sooner?
 
             var responses = recipes.Select(x => x.Title);
 
             return Ok(responses);
         }
 
-        [HttpGet(ApiEndPoints.Recipes.GetAllWithTag)]
+        [HttpGet(ApiEndPoints.Recipes.GetAllTitlesWithTag)]
         public async Task<IActionResult> GetAllWithTag([FromRoute] string tag)
         {
             var recipes = await cookbookRepository.GetAllAsync(); //move filtering to db?
 
-            var responses = recipes.Where(x => x.Tags.Contains(tag)).Select(x => x.MapToResponse());
+            var responses = recipes.Where(x => x.Tags.Contains(tag)).Select(x => x.Title);
 
             return Ok(responses);
         }

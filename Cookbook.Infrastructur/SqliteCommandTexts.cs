@@ -90,5 +90,7 @@
         public const string ExistsById = @"SELECT COUNT(1) FROM Recipes WHERE Guid = @id";
 
         public const string ExistsBySlug = @"SELECT COUNT(1) FROM Recipes WHERE Slug = @slug";
+
+        public const string GetAllTitles = @"SELECT Recipes.Title FROM Recipes";
     }
 }

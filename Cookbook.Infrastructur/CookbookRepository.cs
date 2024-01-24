@@ -87,6 +87,27 @@ namespace Cookbook.Infrastructur
             return ParseRecipe(rawRecipe);
         }
 
+        public async Task<IEnumerable<string>> GetAllTitlesAsync()
+        {
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+
+            var titles = await connection.QueryAsync<string>(
+                                new CommandDefinition(SqliteCommandTexts.GetAllTitles));
+
+            if (titles is null)
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            return titles;
+        }
+
+        public async Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag)
+        {
+            //connect this to controller
+            throw new NotImplementedException();
+        }
+
         public Task<bool> UpdateByIdAsync(Recipe recipe)
         {
             throw new NotImplementedException();
@@ -104,18 +125,6 @@ namespace Cookbook.Infrastructur
 
         public Task<bool> DeleteBySlugAsync(string slug)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<string>> GetAllTitles()
-        {
-            //connect this to controller
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<string>> GetAllTitlesWithTag()
-        {
-            //connect this to controller
             throw new NotImplementedException();
         }
 

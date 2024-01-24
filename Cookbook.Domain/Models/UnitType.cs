@@ -2,22 +2,28 @@
 {
     public enum UnitType
     {
-        kg,
-        dkg,
-        g,
+        kg = 1,
+        dkg = 2,
+        g = 3,
 
-        l,
-        dl,
-        cl,
-        ml,
+        l = 4,
+        dl = 5,
+        cl = 6,
+        ml = 7,
 
-        piece,
-        cloves,
+        piece = 8,
+        pieces = 9,
+        clove = 10,
+        cloves = 11,
 
-        tableSpoon,
-        teaSpoon,
-        coffeeSpoon,
+        tablespoon = 12,
+        tablespoons =13, 
+        teaspoon = 14,
+        teaspoons = 15,
+        coffeespoon = 16,
+        coffeespoons = 17,
 
-        pinch,
+        pinch = 18,
+        pinches = 19
     }
 }

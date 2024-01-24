@@ -1,9 +1,7 @@
 ﻿using Cookbook.API.Mapping;
 using Cookbook.Application;
 using Cookbook.Contracts.Requests;
-using Cookbook.Domain;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace Cookbook.API.Controllers
 {
@@ -58,7 +56,7 @@ namespace Cookbook.API.Controllers
         [HttpGet(ApiEndPoints.Recipes.GetAllTitles)]
         public async Task<IActionResult> GetAllTitles()
         {
-            var recipeTitles = await cookbookRepository.GetAllTitlesAsync(); 
+            var recipeTitles = await cookbookRepository.GetAllTitlesAsync();
             return Ok(recipeTitles);
         }
 
@@ -71,12 +69,12 @@ namespace Cookbook.API.Controllers
         }
 
         [HttpPut(ApiEndPoints.Recipes.Update)]
-        public async Task<IActionResult> Update([FromRoute]string idOrSlug, [FromBody]UpdateRecipeRequest request)
+        public async Task<IActionResult> Update([FromRoute] string idOrSlug, [FromBody] UpdateRecipeRequest request)
         {
             var recipe = Guid.TryParse(idOrSlug, out var id)
                             ? request.MapToRecipe(id)
                             : request.MapToRecipe(await cookbookRepository.GetIdFromSlugAsync(idOrSlug));
-            
+
             var updated = await cookbookRepository.UpdateByIdAsync(recipe);
 
             if (!updated)
@@ -89,13 +87,13 @@ namespace Cookbook.API.Controllers
         }
 
         [HttpDelete(ApiEndPoints.Recipes.Delete)]
-        public async Task<IActionResult> Delete([FromRoute]string idOrSlug)
+        public async Task<IActionResult> Delete([FromRoute] string idOrSlug)
         {
             var deleted = Guid.TryParse(idOrSlug, out var id)
                             ? await cookbookRepository.DeleteByIdAsync(id)
                             : await cookbookRepository.DeleteBySlugAsync(idOrSlug);
 
-            if(!deleted)
+            if (!deleted)
             {
                 return NotFound();
             }

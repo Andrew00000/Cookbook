@@ -86,9 +86,11 @@ namespace Cookbook.API.Controllers
         }
 
         [HttpDelete(ApiEndPoints.Recipes.Delete)]
-        public async Task<IActionResult> Delete([FromRoute]Guid id)
+        public async Task<IActionResult> Delete([FromRoute]string idOrSlug)
         {
-            var deleted = await cookbookRepository.DeleteByIdAsync(id);
+            var deleted = Guid.TryParse(idOrSlug, out var id)
+                            ? await cookbookRepository.DeleteByIdAsync(id)
+                            : await cookbookRepository.DeleteBySlugAsync(idOrSlug);
 
             if(!deleted)
             {

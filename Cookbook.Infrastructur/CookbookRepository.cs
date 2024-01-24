@@ -127,14 +127,28 @@ namespace Cookbook.Infrastructur
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteByIdAsync(Guid id)
+        public async Task<bool> DeleteByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var transaction = connection.BeginTransaction();
+
+            var result = await connection.ExecuteAsync(new CommandDefinition(
+                                            SqliteCommandTexts.DeleteById, new { id }));
+
+            transaction.Commit();
+            return result > 0;
         }
 
-        public Task<bool> DeleteBySlugAsync(string slug)
+        public async Task<bool> DeleteBySlugAsync(string slug)
         {
-            throw new NotImplementedException();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var transaction = connection.BeginTransaction();
+
+            var result = await connection.ExecuteAsync(new CommandDefinition(
+                                            SqliteCommandTexts.DeleteBySlug, new { slug }));
+
+            transaction.Commit();
+            return result > 0;
         }
 
         public async Task<bool> ExistsByIdAsync(Guid id)

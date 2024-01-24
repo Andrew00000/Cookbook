@@ -93,6 +93,10 @@
                                                     JOIN Tags ON Recipes.Slug = Tags.RecipeSlug
                                                     WHERE Tags.Description = @tag";
 
+
+        public const string DeleteById = @"DELETE FROM Recipes WHERE Guid = @id";
+
+        public const string DeleteBySlug = @"DELETE FROM Recipes WHERE Slug = @slug";
         public const string ExistsById = @"SELECT COUNT(1) FROM Recipes WHERE Guid = @id";
 
         public const string ExistsBySlug = @"SELECT COUNT(1) FROM Recipes WHERE Slug = @slug";

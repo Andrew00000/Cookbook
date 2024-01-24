@@ -2,6 +2,7 @@
 using Cookbook.Application.Database;
 using Cookbook.Domain.Models;
 using Dapper;
+using System.Data;
 
 namespace Cookbook.Infrastructur
 {
@@ -117,14 +118,26 @@ namespace Cookbook.Infrastructur
             return titles.Order();
         }
 
-        public Task<bool> UpdateByIdAsync(Recipe recipe)
+        public async Task<bool> UpdateByIdAsync(Recipe recipe) //not the best approach TODO: make it better :D
         {
-            throw new NotImplementedException();
-        }
+            var doesRecipeExists = await ExistsByIdAsync(recipe.Id);
+            if (!doesRecipeExists)
+            {
+                return false;
+            }
 
-        public Task<bool> UpdateBySlugAsync(Recipe recipe)
-        {
-            throw new NotImplementedException();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var transaction = connection.BeginTransaction();
+
+            var deleted = await DeleteByIdAsync(recipe.Id, connection);
+            if (!deleted)
+            {
+                return false;
+            }
+            var result = await CreateAsync(recipe, connection);
+
+            transaction.Commit();
+            return result;
         }
 
         public async Task<bool> DeleteByIdAsync(Guid id)
@@ -151,18 +164,20 @@ namespace Cookbook.Infrastructur
             return result > 0;
         }
 
+        public async Task<Guid> GetIdFromSlugAsync(string slug)
+        {
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            var rawGuid = await connection.QuerySingleOrDefaultAsync(
+                       new CommandDefinition(SqliteCommandTexts.GetIdFromSlug,
+                                             new { slug }));
+            return new Guid(rawGuid.Guid);
+        }
+
         public async Task<bool> ExistsByIdAsync(Guid id)
         {
             using var connection = await dbConnectionFactory.CreateConnectionAsync();
             return await connection.ExecuteScalarAsync<bool>(
                                 new CommandDefinition(SqliteCommandTexts.ExistsById, new { id }));
-        }
-
-        public async Task<bool> ExistsBySlugAsync(string slug)
-        {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
-            return await connection.ExecuteScalarAsync<bool>(
-                                new CommandDefinition(SqliteCommandTexts.ExistsBySlug, new { slug }));
         }
 
         private Recipe ParseRecipe(dynamic rawRecipe)
@@ -226,5 +241,26 @@ namespace Cookbook.Infrastructur
             }
         }
 
+        private async Task<bool> CreateAsync(Recipe recipe, IDbConnection connection)
+        {
+            var result = await connection.ExecuteAsync(
+                            new CommandDefinition(SqliteCommandTexts.Create, recipe));
+
+            if (result > 0)
+            {
+                await AttachIngredientsToRecipe(recipe, connection);
+                await AttachStepsToRecipe(recipe, connection);
+                await AttachTagsToRecipe(recipe, connection);
+            }
+
+            return result > 0;
+        }
+
+        private async Task<bool> DeleteByIdAsync(Guid id, IDbConnection connection)
+        {
+            var result = await connection.ExecuteAsync(new CommandDefinition(
+                                            SqliteCommandTexts.DeleteById, new { id }));
+            return result > 0;
+        }
     }
 }

@@ -71,12 +71,15 @@ namespace Cookbook.API.Controllers
         }
 
         [HttpPut(ApiEndPoints.Recipes.Update)]
-        public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody]UpdateRecipeRequest request)
+        public async Task<IActionResult> Update([FromRoute]string idOrSlug, [FromBody]UpdateRecipeRequest request)
         {
-            var recipe = request.MapToRecipe(id); 
+            var recipe = Guid.TryParse(idOrSlug, out var id)
+                            ? request.MapToRecipe(id)
+                            : request.MapToRecipe(await cookbookRepository.GetIdFromSlugAsync(idOrSlug));
+            
             var updated = await cookbookRepository.UpdateByIdAsync(recipe);
 
-            if(!updated)
+            if (!updated)
             {
                 return NotFound();
             }

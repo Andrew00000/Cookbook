@@ -132,5 +132,19 @@ namespace Cookbook.Infrastructur
         {
             throw new NotImplementedException();
         }
+
+        public async Task<bool> ExistsByIdAsync(Guid id)
+        {
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            return await connection.ExecuteScalarAsync<bool>(
+                                new CommandDefinition(SqliteCommandTexts.ExistsById, new { id }));
+        }
+
+        public async Task<bool> ExistsBySlugAsync(string slug)
+        {
+            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            return await connection.ExecuteScalarAsync<bool>(
+                                new CommandDefinition(SqliteCommandTexts.ExistsBySlug, new { slug }));
+        }
     }
 }

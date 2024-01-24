@@ -54,7 +54,7 @@ namespace Cookbook.Infrastructur
                 recipes.Add(recipe);
             }
 
-            return recipes;
+            return recipes.OrderBy(x => x.Title);
         }
 
         public async Task<Recipe?> GetByIdAsync(Guid id)
@@ -99,7 +99,7 @@ namespace Cookbook.Infrastructur
                 return Enumerable.Empty<string>();
             }
 
-            return titles;
+            return titles.Order();
         }
 
         public async Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag)
@@ -114,7 +114,7 @@ namespace Cookbook.Infrastructur
                 return Enumerable.Empty<string>();
             }
 
-            return titles;
+            return titles.Order();
         }
 
         public Task<bool> UpdateByIdAsync(Recipe recipe)

@@ -1,3 +1,4 @@
+using Cookbook.API.Mapping;
 using Cookbook.Application;
 using Cookbook.Infrastructur;
 
@@ -7,6 +8,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddApplication();
 builder.Services.AddDatabase();
 builder.Services.AddPersistence();
 
@@ -23,6 +25,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseMiddleware<ValidationMappingMiddleware>();
 app.MapControllers();
 
 app.Run();

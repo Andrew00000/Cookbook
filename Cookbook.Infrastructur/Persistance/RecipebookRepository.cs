@@ -16,7 +16,7 @@ namespace Cookbook.Infrastructur.Persistance
 
         public async Task<bool> CreateAsync(Recipe recipe, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
             using var transaction = connection.BeginTransaction();
 
             var result = await connection.ExecuteAsync(
@@ -37,7 +37,7 @@ namespace Cookbook.Infrastructur.Persistance
 
         public async Task<IEnumerable<Recipe>> GetAllAsync(CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
             var rawRecipes = await connection.QueryAsync(
                             new CommandDefinition(SqliteCommandTexts.GetAll,
                                                   cancellationToken: token));
@@ -61,7 +61,7 @@ namespace Cookbook.Infrastructur.Persistance
 
         public async Task<Recipe?> GetByIdAsync(Guid id, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
 
             var rawRecipe = await connection.QuerySingleOrDefaultAsync(
                             new CommandDefinition(SqliteCommandTexts.GetById, 
@@ -77,7 +77,7 @@ namespace Cookbook.Infrastructur.Persistance
 
         public async Task<Recipe?> GetBySlugAsync(string slug, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
 
             var rawRecipe = await connection.QuerySingleOrDefaultAsync(
                             new CommandDefinition(SqliteCommandTexts.GetBySlug, 
@@ -93,7 +93,7 @@ namespace Cookbook.Infrastructur.Persistance
 
         public async Task<IEnumerable<string>> GetAllTitlesAsync(CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
 
             var titles = await connection.QueryAsync<string>(
                                 new CommandDefinition(SqliteCommandTexts.GetAllTitles,
@@ -110,7 +110,7 @@ namespace Cookbook.Infrastructur.Persistance
         public async Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag, 
                                                              CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
 
             var titles = await connection.QueryAsync<string>(
                                 new CommandDefinition(SqliteCommandTexts.GetAllTitlesWithTag, 
@@ -127,7 +127,7 @@ namespace Cookbook.Infrastructur.Persistance
         public async Task<bool> UpdateByIdAsync(Recipe recipe, CancellationToken token) 
         //not the best approach TODO: make it better :D
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
             using var transaction = connection.BeginTransaction();
 
             var deleted = await DeleteByIdAsync(recipe.Id, connection, token);
@@ -143,7 +143,7 @@ namespace Cookbook.Infrastructur.Persistance
 
         public async Task<bool> DeleteByIdAsync(Guid id, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
             using var transaction = connection.BeginTransaction();
 
             var result = await connection.ExecuteAsync(new CommandDefinition(
@@ -157,7 +157,7 @@ namespace Cookbook.Infrastructur.Persistance
 
         public async Task<bool> DeleteBySlugAsync(string slug, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
             using var transaction = connection.BeginTransaction();
 
             var result = await connection.ExecuteAsync(new CommandDefinition(
@@ -171,7 +171,7 @@ namespace Cookbook.Infrastructur.Persistance
 
         public async Task<Guid> GetIdFromSlugAsync(string slug, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
             var rawGuid = await connection.QuerySingleOrDefaultAsync(
                        new CommandDefinition(SqliteCommandTexts.GetIdFromSlug,
                                              new { slug }, cancellationToken: token));
@@ -180,7 +180,7 @@ namespace Cookbook.Infrastructur.Persistance
 
         public async Task<bool> ExistsByIdAsync(Guid id, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync();
+            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
             return await connection.ExecuteScalarAsync<bool>(
                                 new CommandDefinition(SqliteCommandTexts.ExistsById, 
                                     new { id },

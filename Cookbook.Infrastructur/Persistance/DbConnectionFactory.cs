@@ -14,10 +14,10 @@ namespace Cookbook.Infrastructur.Persistance
         {
             Batteries.Init();
         }
-        public async Task<IDbConnection> CreateConnectionAsync()
+        public async Task<IDbConnection> CreateConnectionAsync(CancellationToken token = default)
         {
             var connection = new SqliteConnection(connectionString);
-            await connection.OpenAsync();
+            await connection.OpenAsync(token);
 
             return connection;
         }

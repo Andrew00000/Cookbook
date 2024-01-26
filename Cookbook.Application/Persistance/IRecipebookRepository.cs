@@ -1,8 +1,8 @@
 ﻿using Cookbook.Domain.Models;
 
-namespace Cookbook.Application
+namespace Cookbook.Application.Database
 {
-    public interface ICookbookRepository
+    public interface IRecipebookRepository
     {
         Task<bool> CreateAsync(Recipe recipe);
         Task<IEnumerable<Recipe>> GetAllAsync();

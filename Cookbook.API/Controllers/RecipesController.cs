@@ -1,5 +1,6 @@
 ﻿using Cookbook.API.Mapping;
-using Cookbook.Application;
+using Cookbook.Application.Database;
+using Cookbook.Application.Services;
 using Cookbook.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,14 @@ namespace Cookbook.API.Controllers
     [ApiController]
     public class RecipesController : ControllerBase
     {
-        private readonly ICookbookRepository cookbookRepository;
+        private readonly IRecipebookReadServices recipebookReadServices;
+        private readonly IRecipebookWriteServices recipebookWriteServices;
 
-        public RecipesController(ICookbookRepository cookbookRepository)
+        public RecipesController(IRecipebookReadServices recipebookReadServices, 
+                                 IRecipebookWriteServices recipebookWriteServices)
         {
-            this.cookbookRepository = cookbookRepository;
+            this.recipebookReadServices = recipebookReadServices;
+            this.recipebookWriteServices = recipebookWriteServices;
         }
 
         [HttpPost(ApiEndPoints.Recipes.Create)]
@@ -20,7 +24,7 @@ namespace Cookbook.API.Controllers
         {
             var recipe = request.MapToRecipe();
 
-            await cookbookRepository.CreateAsync(recipe);
+            await recipebookWriteServices.CreateAsync(recipe);
 
             var response = recipe.MapToResponse();
 
@@ -31,8 +35,8 @@ namespace Cookbook.API.Controllers
         public async Task<IActionResult> Get([FromRoute] string idOrSlug)
         {
             var recipe = Guid.TryParse(idOrSlug, out var id)
-                            ? await cookbookRepository.GetByIdAsync(id)
-                            : await cookbookRepository.GetBySlugAsync(idOrSlug);
+                            ? await recipebookReadServices.GetByIdAsync(id)
+                            : await recipebookReadServices.GetBySlugAsync(idOrSlug);
 
             if (recipe is null)
             {
@@ -46,7 +50,7 @@ namespace Cookbook.API.Controllers
         [HttpGet(ApiEndPoints.Recipes.GetAll)]
         public async Task<IActionResult> GetAll()
         {
-            var recipes = await cookbookRepository.GetAllAsync();
+            var recipes = await recipebookReadServices.GetAllAsync();
 
             var responses = recipes.MapToResponse();
 
@@ -56,14 +60,14 @@ namespace Cookbook.API.Controllers
         [HttpGet(ApiEndPoints.Recipes.GetAllTitles)]
         public async Task<IActionResult> GetAllTitles()
         {
-            var recipeTitles = await cookbookRepository.GetAllTitlesAsync();
+            var recipeTitles = await recipebookReadServices.GetAllTitlesAsync();
             return Ok(recipeTitles);
         }
 
         [HttpGet(ApiEndPoints.Recipes.GetAllTitlesWithTag)]
         public async Task<IActionResult> GetAllWithTag([FromRoute] string tag)
         {
-            var recipeTitles = await cookbookRepository.GetAllTitlesWithTagAsync(tag);
+            var recipeTitles = await recipebookReadServices.GetAllTitlesWithTagAsync(tag);
 
             return Ok(recipeTitles);
         }
@@ -73,16 +77,17 @@ namespace Cookbook.API.Controllers
         {
             var recipe = Guid.TryParse(idOrSlug, out var id)
                             ? request.MapToRecipe(id)
-                            : request.MapToRecipe(await cookbookRepository.GetIdFromSlugAsync(idOrSlug));
+                            : request.MapToRecipe(
+                                await recipebookReadServices.GetIdFromSlugAsync(idOrSlug));
 
-            var updated = await cookbookRepository.UpdateByIdAsync(recipe);
+            var updatedRecipe = await recipebookWriteServices.UpdateByIdAsync(recipe);
 
-            if (!updated)
+            if (updatedRecipe is null)
             {
                 return NotFound();
             }
 
-            var response = recipe.MapToResponse();
+            var response = updatedRecipe.MapToResponse();
             return Ok(response);
         }
 
@@ -90,8 +95,8 @@ namespace Cookbook.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] string idOrSlug)
         {
             var deleted = Guid.TryParse(idOrSlug, out var id)
-                            ? await cookbookRepository.DeleteByIdAsync(id)
-                            : await cookbookRepository.DeleteBySlugAsync(idOrSlug);
+                            ? await recipebookWriteServices.DeleteByIdAsync(id)
+                            : await recipebookWriteServices.DeleteBySlugAsync(idOrSlug);
 
             if (!deleted)
             {

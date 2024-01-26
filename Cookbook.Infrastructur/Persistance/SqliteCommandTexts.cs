@@ -1,4 +1,4 @@
-﻿namespace Cookbook.Infrastructur
+﻿namespace Cookbook.Infrastructur.Persistance
 {
     public static class SqliteCommandTexts //parameterize (create tables class, columns class)
     {

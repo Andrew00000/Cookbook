@@ -3,7 +3,7 @@ using Microsoft.Data.Sqlite;
 using SQLitePCL;
 using System.Data;
 
-namespace Cookbook.Infrastructur
+namespace Cookbook.Infrastructur.Persistance
 {
     public class SqliteConnectionFactory : IDbConnectionFactory
     {

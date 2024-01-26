@@ -1,12 +1,11 @@
-﻿using Cookbook.Application;
-using Cookbook.Application.Database;
+﻿using Cookbook.Application.Database;
 using Cookbook.Domain.Models;
 using Dapper;
 using System.Data;
 
-namespace Cookbook.Infrastructur
+namespace Cookbook.Infrastructur.Persistance
 {
-    public class CookbookRepository : ICookbookRepository
+    public class CookbookRepository : IRecipebookRepository
     {
         private readonly IDbConnectionFactory dbConnectionFactory;
 
@@ -118,14 +117,9 @@ namespace Cookbook.Infrastructur
             return titles.Order();
         }
 
-        public async Task<bool> UpdateByIdAsync(Recipe recipe) //not the best approach TODO: make it better :D
+        public async Task<bool> UpdateByIdAsync(Recipe recipe) 
+        //not the best approach TODO: make it better :D
         {
-            var doesRecipeExists = await ExistsByIdAsync(recipe.Id);
-            if (!doesRecipeExists)
-            {
-                return false;
-            }
-
             using var connection = await dbConnectionFactory.CreateConnectionAsync();
             using var transaction = connection.BeginTransaction();
 

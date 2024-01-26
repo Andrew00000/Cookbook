@@ -10,7 +10,7 @@ namespace Cookbook.Infrastructur
     {
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
-            services.AddSingleton<IRecipebookRepository, CookbookRepository>();
+            services.AddSingleton<IRecipebookRepository, RecipebookRepository>();
             services.AddSingleton<IRecipebookReadServices, RecipebookReadServices>();
             services.AddSingleton<IRecipebookWriteServices, RecipebookWriteServices>();
 

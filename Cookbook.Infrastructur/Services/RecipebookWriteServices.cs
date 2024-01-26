@@ -17,30 +17,31 @@ namespace Cookbook.Infrastructur.Services
             this.recipeValidator = recipeValidator;
         }
 
-        public async Task<bool> CreateAsync(Recipe recipe)
+        public async Task<bool> CreateAsync(Recipe recipe, CancellationToken token = default)
         {
-            await recipeValidator.ValidateAndThrowAsync(recipe);
-            return await recipebookRepository.CreateAsync(recipe);
+            await recipeValidator.ValidateAndThrowAsync(recipe, cancellationToken: token);
+            return await recipebookRepository.CreateAsync(recipe, token);
         }
 
-        public async Task<Recipe?> UpdateByIdAsync(Recipe recipe)
+        public async Task<Recipe?> UpdateByIdAsync(Recipe recipe, 
+                                                   CancellationToken token = default)
         {
-            await recipeValidator.ValidateAndThrowAsync(recipe);
+            await recipeValidator.ValidateAndThrowAsync(recipe, cancellationToken: token);
 
-            var doesRecipeExists = await recipebookRepository.ExistsByIdAsync(recipe.Id);
+            var doesRecipeExists = await recipebookRepository.ExistsByIdAsync(recipe.Id, token);
             if (!doesRecipeExists)
             {
                 return null;
             }
 
-            await recipebookRepository.UpdateByIdAsync(recipe);
+            await recipebookRepository.UpdateByIdAsync(recipe, token);
             return recipe;
         }
 
-        public Task<bool> DeleteByIdAsync(Guid id)
-            => recipebookRepository.DeleteByIdAsync(id);
+        public Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
+            => recipebookRepository.DeleteByIdAsync(id, token);
 
-        public Task<bool> DeleteBySlugAsync(string slug)
-            => recipebookRepository.DeleteBySlugAsync(slug);
+        public Task<bool> DeleteBySlugAsync(string slug, CancellationToken token = default)
+            => recipebookRepository.DeleteBySlugAsync(slug, token);
     }
 }

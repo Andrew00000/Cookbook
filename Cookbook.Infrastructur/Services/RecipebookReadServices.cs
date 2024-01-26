@@ -13,22 +13,23 @@ namespace Cookbook.Infrastructur.Services
             this.recipebookRepository = recipebookRepository;
         }
 
-        public Task<IEnumerable<Recipe>> GetAllAsync()
-            => recipebookRepository.GetAllAsync();
+        public Task<IEnumerable<Recipe>> GetAllAsync(CancellationToken token = default)
+            => recipebookRepository.GetAllAsync(token);
 
-        public Task<IEnumerable<string>> GetAllTitlesAsync()
-            => recipebookRepository.GetAllTitlesAsync();
+        public Task<IEnumerable<string>> GetAllTitlesAsync(CancellationToken token = default)
+            => recipebookRepository.GetAllTitlesAsync(token);
 
-        public Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag)
-            => recipebookRepository.GetAllTitlesWithTagAsync(tag);
+        public Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag, 
+                                                       CancellationToken token = default)
+            => recipebookRepository.GetAllTitlesWithTagAsync(tag, token);
 
-        public Task<Recipe?> GetByIdAsync(Guid id)
-            => recipebookRepository.GetByIdAsync(id);
+        public Task<Recipe?> GetByIdAsync(Guid id, CancellationToken token = default)
+            => recipebookRepository.GetByIdAsync(id, token);
 
-        public Task<Recipe?> GetBySlugAsync(string slug)
-            => recipebookRepository.GetBySlugAsync(slug);
+        public Task<Recipe?> GetBySlugAsync(string slug, CancellationToken token = default)
+            => recipebookRepository.GetBySlugAsync(slug, token);
 
-        public Task<Guid> GetIdFromSlugAsync(string idOrSlug)
-            => recipebookRepository.GetIdFromSlugAsync(idOrSlug);
+        public Task<Guid> GetIdFromSlugAsync(string idOrSlug, CancellationToken token = default)
+            => recipebookRepository.GetIdFromSlugAsync(idOrSlug, token);
     }
 }

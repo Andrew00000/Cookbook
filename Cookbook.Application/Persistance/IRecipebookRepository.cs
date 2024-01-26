@@ -4,16 +4,16 @@ namespace Cookbook.Application.Database
 {
     public interface IRecipebookRepository
     {
-        Task<bool> CreateAsync(Recipe recipe);
-        Task<IEnumerable<Recipe>> GetAllAsync();
-        Task<bool> ExistsByIdAsync(Guid id);
-        Task<Recipe?> GetByIdAsync(Guid id);
-        Task<Recipe?> GetBySlugAsync(string slug);
-        Task<IEnumerable<string>> GetAllTitlesAsync();
-        Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag);
-        Task<bool> UpdateByIdAsync(Recipe recipe);
-        Task<bool> DeleteByIdAsync(Guid id);
-        Task<bool> DeleteBySlugAsync(string slug);
-        Task<Guid> GetIdFromSlugAsync(string idOrSlug);
+        Task<bool> CreateAsync(Recipe recipe, CancellationToken token);
+        Task<IEnumerable<Recipe>> GetAllAsync(CancellationToken token);
+        Task<bool> ExistsByIdAsync(Guid id, CancellationToken token);
+        Task<Recipe?> GetByIdAsync(Guid id, CancellationToken token);
+        Task<Recipe?> GetBySlugAsync(string slug, CancellationToken token);
+        Task<IEnumerable<string>> GetAllTitlesAsync(CancellationToken token);
+        Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag, CancellationToken token);
+        Task<bool> UpdateByIdAsync(Recipe recipe, CancellationToken token);
+        Task<bool> DeleteByIdAsync(Guid id, CancellationToken token);
+        Task<bool> DeleteBySlugAsync(string slug, CancellationToken token);
+        Task<Guid> GetIdFromSlugAsync(string idOrSlug, CancellationToken token);
     }
 }

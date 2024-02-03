@@ -1,7 +1,5 @@
 ﻿using Cookbook.Application.Database;
-using Cookbook.Application.Services;
 using Cookbook.Infrastructur.Persistance;
-using Cookbook.Infrastructur.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cookbook.Infrastructur
@@ -11,8 +9,6 @@ namespace Cookbook.Infrastructur
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
             services.AddSingleton<IRecipebookRepository, RecipebookRepository>();
-            services.AddSingleton<IRecipebookReadServices, RecipebookReadServices>();
-            services.AddSingleton<IRecipebookWriteServices, RecipebookWriteServices>();
 
             return services;
         }

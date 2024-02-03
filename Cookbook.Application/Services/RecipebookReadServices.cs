@@ -1,8 +1,7 @@
 ﻿using Cookbook.Application.Database;
-using Cookbook.Application.Services;
 using Cookbook.Domain.Models;
 
-namespace Cookbook.Infrastructur.Services
+namespace Cookbook.Application.Services
 {
     internal class RecipebookReadServices : IRecipebookReadServices
     {
@@ -19,7 +18,7 @@ namespace Cookbook.Infrastructur.Services
         public Task<IEnumerable<string>> GetAllTitlesAsync(CancellationToken token = default)
             => recipebookRepository.GetAllTitlesAsync(token);
 
-        public Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag, 
+        public Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag,
                                                        CancellationToken token = default)
             => recipebookRepository.GetAllTitlesWithTagAsync(tag, token);
 

@@ -3,7 +3,7 @@ using Cookbook.Domain.Models;
 using Dapper;
 using System.Data;
 
-namespace Cookbook.Infrastructur.Persistance
+namespace Cookbook.Infrastructur.Persistance //restructure DB to use rowID as FK instead of slug
 {
     public class RecipebookRepository : IRecipebookRepository
     {

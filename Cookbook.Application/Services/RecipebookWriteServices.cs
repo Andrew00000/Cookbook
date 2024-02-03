@@ -1,9 +1,8 @@
 ﻿using Cookbook.Application.Database;
-using Cookbook.Application.Services;
 using Cookbook.Domain.Models;
 using FluentValidation;
 
-namespace Cookbook.Infrastructur.Services
+namespace Cookbook.Application.Services
 {
     internal class RecipebookWriteServices : IRecipebookWriteServices
     {
@@ -23,7 +22,7 @@ namespace Cookbook.Infrastructur.Services
             return await recipebookRepository.CreateAsync(recipe, token);
         }
 
-        public async Task<Recipe?> UpdateByIdAsync(Recipe recipe, 
+        public async Task<Recipe?> UpdateByIdAsync(Recipe recipe,
                                                    CancellationToken token = default)
         {
             await recipeValidator.ValidateAndThrowAsync(recipe, cancellationToken: token);

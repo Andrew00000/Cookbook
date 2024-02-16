@@ -2,7 +2,7 @@
 
 namespace Cookbook.Application.Services
 {
-    public interface IRecipebookWriteServices
+    public interface IRecipebookWriteService
     {
         Task<bool> CreateAsync(Recipe recipe, CancellationToken token = default);
         Task<Recipe?> UpdateByIdAsync(Recipe recipe, CancellationToken token = default);

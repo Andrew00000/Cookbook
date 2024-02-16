@@ -3,11 +3,11 @@ using Cookbook.Domain.Models;
 
 namespace Cookbook.Application.Services
 {
-    internal class RecipebookReadServices : IRecipebookReadServices
+    internal class RecipebookReadService : IRecipebookReadService
     {
         private readonly IRecipebookRepository recipebookRepository;
 
-        public RecipebookReadServices(IRecipebookRepository recipebookRepository)
+        public RecipebookReadService(IRecipebookRepository recipebookRepository)
         {
             this.recipebookRepository = recipebookRepository;
         }

@@ -9,11 +9,11 @@ namespace Cookbook.API.Controllers
     [ApiController]
     public class RecipesController : ControllerBase
     {
-        private readonly IRecipebookReadServices recipebookReadServices;
-        private readonly IRecipebookWriteServices recipebookWriteServices;
+        private readonly IRecipebookReadService recipebookReadServices;
+        private readonly IRecipebookWriteService recipebookWriteServices;
 
-        public RecipesController(IRecipebookReadServices recipebookReadServices, 
-                                 IRecipebookWriteServices recipebookWriteServices)
+        public RecipesController(IRecipebookReadService recipebookReadServices, 
+                                 IRecipebookWriteService recipebookWriteServices)
         {
             this.recipebookReadServices = recipebookReadServices;
             this.recipebookWriteServices = recipebookWriteServices;

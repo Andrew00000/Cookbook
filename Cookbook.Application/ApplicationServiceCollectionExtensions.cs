@@ -10,8 +10,8 @@ namespace Cookbook.Application
         {
             services.AddValidatorsFromAssemblyContaining<IApplicationMarker>(
                                                             ServiceLifetime.Singleton);
-            services.AddSingleton<IRecipebookReadServices, RecipebookReadServices>();
-            services.AddSingleton<IRecipebookWriteServices, RecipebookWriteServices>();
+            services.AddSingleton<IRecipebookReadService, RecipebookReadService>();
+            services.AddSingleton<IRecipebookWriteService, RecipebookWriteService>();
 
             return services;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cookbook.Application.Services
 {
-    public interface IRecipebookReadServices
+    public interface IRecipebookReadService
     {
         Task<IEnumerable<Recipe>> GetAllAsync(CancellationToken token = default);
         Task<Recipe?> GetByIdAsync(Guid id, CancellationToken token = default);

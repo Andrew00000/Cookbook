@@ -4,12 +4,12 @@ using FluentValidation;
 
 namespace Cookbook.Application.Services
 {
-    internal class RecipebookWriteServices : IRecipebookWriteServices
+    internal class RecipebookWriteService : IRecipebookWriteService
     {
         private readonly IRecipebookRepository recipebookRepository;
         private readonly IValidator<Recipe> recipeValidator;
 
-        public RecipebookWriteServices(IRecipebookRepository recipebookRepository,
+        public RecipebookWriteService(IRecipebookRepository recipebookRepository,
                                        IValidator<Recipe> recipeValidator)
         {
             this.recipebookRepository = recipebookRepository;

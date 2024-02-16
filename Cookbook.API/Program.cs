@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication();
 builder.Services.AddDatabase();
-builder.Services.AddPersistence();
+builder.Services.AddRepositories();
 
 var app = builder.Build();
 

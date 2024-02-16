@@ -6,7 +6,7 @@ namespace Cookbook.Infrastructur
 {
     public static class InfrastructureServiceCollectionExtensions
     {
-        public static IServiceCollection AddPersistence(this IServiceCollection services)
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddSingleton<IRecipebookRepository, RecipebookRepository>();
 

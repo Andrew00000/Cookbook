@@ -29,7 +29,7 @@ namespace Cookbook.Application.Validators //is this the right place for validato
         }
 
         private async Task<bool> ValidateSlug(Recipe recipe, string slug,
-                                              CancellationToken token = default)
+                                              CancellationToken token)
         {
             var existingRecipe = await recipebookRepository.GetBySlugAsync(slug, token);
 

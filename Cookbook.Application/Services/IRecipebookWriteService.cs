@@ -4,9 +4,9 @@ namespace Cookbook.Application.Services
 {
     public interface IRecipebookWriteService
     {
-        Task<bool> CreateAsync(Recipe recipe, CancellationToken token = default);
-        Task<Recipe?> UpdateByIdAsync(Recipe recipe, CancellationToken token = default);
-        Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default);
-        Task<bool> DeleteBySlugAsync(string slug, CancellationToken token = default);
+        Task<bool> CreateAsync(Recipe recipe, CancellationToken token);
+        Task<Recipe?> UpdateByIdAsync(Recipe recipe, CancellationToken token);
+        Task<bool> DeleteByIdAsync(Guid id, CancellationToken token);
+        Task<bool> DeleteBySlugAsync(string slug, CancellationToken token);
     }
 }

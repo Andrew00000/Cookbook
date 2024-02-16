@@ -14,7 +14,7 @@ namespace Cookbook.Infrastructur.Persistance
         {
             Batteries.Init();
         }
-        public async Task<IDbConnection> CreateConnectionAsync(CancellationToken token = default)
+        public async Task<IDbConnection> CreateConnectionAsync(CancellationToken token)
         {
             var connection = new SqliteConnection(connectionString);
             await connection.OpenAsync(token);

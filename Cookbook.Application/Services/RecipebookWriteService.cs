@@ -16,14 +16,14 @@ namespace Cookbook.Application.Services
             this.recipeValidator = recipeValidator;
         }
 
-        public async Task<bool> CreateAsync(Recipe recipe, CancellationToken token = default)
+        public async Task<bool> CreateAsync(Recipe recipe, CancellationToken token)
         {
             await recipeValidator.ValidateAndThrowAsync(recipe, cancellationToken: token);
             return await recipebookRepository.CreateAsync(recipe, token);
         }
 
         public async Task<Recipe?> UpdateByIdAsync(Recipe recipe,
-                                                   CancellationToken token = default)
+                                                   CancellationToken token)
         {
             await recipeValidator.ValidateAndThrowAsync(recipe, cancellationToken: token);
 
@@ -37,10 +37,10 @@ namespace Cookbook.Application.Services
             return recipe;
         }
 
-        public Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
+        public Task<bool> DeleteByIdAsync(Guid id, CancellationToken token)
             => recipebookRepository.DeleteByIdAsync(id, token);
 
-        public Task<bool> DeleteBySlugAsync(string slug, CancellationToken token = default)
+        public Task<bool> DeleteBySlugAsync(string slug, CancellationToken token)
             => recipebookRepository.DeleteBySlugAsync(slug, token);
     }
 }

@@ -4,17 +4,37 @@ using FluentValidation;
 
 namespace Cookbook.Application.Services
 {
-    internal class RecipebookWriteService : IRecipebookWriteService
+    internal class RecipebookService : IRecipebookReadService, IRecipebookWriteService
     {
         private readonly IRecipebookRepository recipebookRepository;
         private readonly IValidator<Recipe> recipeValidator;
 
-        public RecipebookWriteService(IRecipebookRepository recipebookRepository,
+        public RecipebookService(IRecipebookRepository recipebookRepository,
                                        IValidator<Recipe> recipeValidator)
         {
             this.recipebookRepository = recipebookRepository;
             this.recipeValidator = recipeValidator;
         }
+        
+        public Task<IEnumerable<Recipe>> GetAllAsync(CancellationToken token)
+            => recipebookRepository.GetAllAsync(token);
+
+        public Task<IEnumerable<string>> GetAllTitlesAsync(CancellationToken token)
+            => recipebookRepository.GetAllTitlesAsync(token);
+
+        public Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag,
+                                                       CancellationToken token)
+            => recipebookRepository.GetAllTitlesWithTagAsync(tag, token);
+
+        public Task<Recipe?> GetByIdAsync(Guid id, CancellationToken token)
+            => recipebookRepository.GetByIdAsync(id, token);
+
+        public Task<Recipe?> GetBySlugAsync(string slug, CancellationToken token)
+            => recipebookRepository.GetBySlugAsync(slug, token);
+
+        public Task<Guid> GetIdFromSlugAsync(string idOrSlug, CancellationToken token)
+            => recipebookRepository.GetIdFromSlugAsync(idOrSlug, token);
+
 
         public async Task<bool> CreateAsync(Recipe recipe, CancellationToken token)
         {

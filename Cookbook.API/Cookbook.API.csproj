@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Cookbook.Application\Cookbook.Application.csproj" />
     <ProjectReference Include="..\Cookbook.Contracts\Cookbook.Contracts.csproj" />
-    <ProjectReference Include="..\Cookbook.Infrastructur\Cookbook.Infrastructur.csproj" />
+    <ProjectReference Include="..\Cookbook.Infrastructur\Cookbook.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

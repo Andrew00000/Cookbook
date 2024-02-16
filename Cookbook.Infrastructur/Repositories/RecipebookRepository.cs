@@ -99,12 +99,7 @@ namespace Cookbook.Infrastructur.Persistance //restructure DB to use rowID as FK
                                 new CommandDefinition(SqliteCommandTexts.GetAllTitles,
                                                       cancellationToken: token));
 
-            if (titles is null)
-            {
-                return Enumerable.Empty<string>();
-            }
-
-            return titles.Order();
+            return titles?.Order() ?? Enumerable.Empty<string>();
         }
 
         public async Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag, 

@@ -16,7 +16,7 @@ namespace Cookbook.Infrastructur
 
         public static IServiceCollection AddDatabase(this IServiceCollection services)
         {
-            services.AddSingleton<IDbConnectionFactory>(_ => new SqliteConnectionFactory());
+            services.AddSingleton<IDbConnectionFactory, SqliteConnectionFactory>();
 
             return services;
         }

@@ -4,7 +4,7 @@ using Cookbook.Repository.Database;
 using Dapper;
 using System.Data;
 
-namespace Cookbook.Infrastructur.Persistance 
+namespace Cookbook.Repository.Repositories
 {
     public class RecipebookRepository : IRecipebookRepository
     {

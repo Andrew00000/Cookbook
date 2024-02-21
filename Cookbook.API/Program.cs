@@ -1,6 +1,6 @@
 using Cookbook.API.Mapping;
 using Cookbook.Application;
-using Cookbook.Infrastructur;
+using Cookbook.Repository.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

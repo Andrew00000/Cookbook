@@ -1,9 +1,8 @@
 ﻿using Cookbook.Application.Database;
-using Cookbook.Infrastructur.Persistance;
 using Cookbook.Repository.Database;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cookbook.Infrastructur
+namespace Cookbook.Repository.Repositories
 {
     public static class InfrastructureServiceCollectionExtensions
     {

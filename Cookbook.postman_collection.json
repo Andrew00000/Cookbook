@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "9863e18b-1a56-4d4c-a8cd-3a580f5789fd",
+		"name": "Cookbook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27783986"
+	},
+	"item": [
+		{
+			"name": "Validation tests",
+			"item": [
+				{
+					"name": "Create Recipe Missing Title",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"\",\r\n    \"author\": \"ValidationTest Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7139/api/recipes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7139",
+							"path": [
+								"api",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Missing Author",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7139/api/recipes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7139",
+							"path": [
+								"api",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Missing NumberOfPortions negative",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": -1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7139/api/recipes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7139",
+							"path": [
+								"api",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Missing Ingredients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7139/api/recipes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7139",
+							"path": [
+								"api",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Missing Steps",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7139/api/recipes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7139",
+							"path": [
+								"api",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Recipe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7139/api/recipes",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Recipe2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Air\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Easy\"],\r\n    \"ingredients\": [\"1 l air\"],\r\n    \"steps\": [\"Inhale\", \"Exhale\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7139/api/recipes",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Recipe3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Spaghetti Bolognese\",\r\n    \"author\": \"John Doe\",\r\n    \"portions\": 4,\r\n    \"calories\" : 520,\r\n    \"tags\": [ \"Italian\", \"Pasta\"],\r\n    \"ingredients\": [\"500 g Ground Beef\", \"1 piece Onion\", \"2 cloves Garlic\"],\r\n    \"steps\": [\"Heat olive oil in a pan\", \"Saute onions and garlic until softened\", \"Add ground beef and cook until browned\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7139/api/recipes",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Recipes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7139/api/recipes",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Recipe Titles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7139/api/recipes/titles",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes",
+						"titles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Titles with tag",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7139/api/recipes/tags/easy",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes",
+						"tags",
+						"easy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7139/api/recipes/2b84fc19-ac46-408f-af49-1779c971fdeb",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes",
+						"2b84fc19-ac46-408f-af49-1779c971fdeb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe By Slug",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7139/api/recipes/water-mother-nature",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes",
+						"water-mother-nature"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe By ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Dirt\",\r\n    \"author\": \"Father Nature\",\r\n    \"numberofportions\": 5,\r\n    \"calories\" : 666,\r\n    \"tags\": [ \"Earthy\", \"Sexy\"],\r\n    \"ingredients\": [\"1 kg dirt\"],\r\n    \"steps\": [\"Eat dirt\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7139/api/recipes/cefd2084-0b59-4406-92ae-6d5f80d95714",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes",
+						"cefd2084-0b59-4406-92ae-6d5f80d95714"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe By Slug",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Air\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Easy\"],\r\n    \"ingredients\": [\"1 l air\"],\r\n    \"steps\": [\"Inhale\", \"Exhale\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7139/api/recipes/dirt-father-nature",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes",
+						"dirt-father-nature"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete By ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7139/api/recipes/494f996d-5770-401b-b16e-6364bdf4ce02",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes",
+						"494f996d-5770-401b-b16e-6364bdf4ce02"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete By Slug",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7139/api/recipes/494f996d-5770-401b-b16e-6364bdf4ce02",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7139",
+					"path": [
+						"api",
+						"recipes",
+						"494f996d-5770-401b-b16e-6364bdf4ce02"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

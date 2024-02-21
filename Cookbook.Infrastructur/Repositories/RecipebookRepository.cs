@@ -26,9 +26,10 @@ namespace Cookbook.Infrastructur.Persistance //restructure DB to use rowID as FK
 
             if (result > 0)
             {
-                await AttachIngredientsToRecipe(recipe, connection, token);
-                await AttachStepsToRecipe(recipe, connection, token);
-                await AttachTagsToRecipe(recipe, connection, token);
+                var lastInsertRowId = connection.QuerySingle<long>(SqliteCommandTexts.GetLastInsertRowId);
+                await AttachIngredientsToRecipe(recipe, lastInsertRowId, connection, token);
+                await AttachStepsToRecipe(recipe, lastInsertRowId, connection, token);
+                await AttachTagsToRecipe(recipe, lastInsertRowId, connection, token);
             }
 
             transaction.Commit();
@@ -212,19 +213,19 @@ namespace Cookbook.Infrastructur.Persistance //restructure DB to use rowID as FK
                                         Unit = (UnitType)int.Parse(x.Split(' ')[1]),
                                         Name = x.Split(' ')[2]
                                     });
-        private async Task AttachTagsToRecipe(Recipe recipe, IDbConnection connection,
+        private async Task AttachTagsToRecipe(Recipe recipe, long recipeId, IDbConnection connection,
                                               CancellationToken token)
         {
             foreach (var tag in recipe.Tags)
             {
                 await connection.ExecuteAsync(
                         new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesTags,
-                            new { recipe.Slug, Description = tag },
+                            new { recipeId, Description = tag },
                             cancellationToken: token));
             }
         }
 
-        private async Task AttachStepsToRecipe(Recipe recipe, IDbConnection connection,
+        private async Task AttachStepsToRecipe(Recipe recipe, long recipeId, IDbConnection connection,
                                                CancellationToken token)
         {
             var index = 1;
@@ -232,20 +233,20 @@ namespace Cookbook.Infrastructur.Persistance //restructure DB to use rowID as FK
             {
                 await connection.ExecuteAsync(
                         new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesSteps,
-                            new { recipe.Slug, Number = index, Description = step },
+                            new { recipeId, Number = index, Description = step },
                             cancellationToken: token));
                 index++;
             }
         }
 
-        private async Task AttachIngredientsToRecipe(Recipe recipe, IDbConnection connection,
+        private async Task AttachIngredientsToRecipe(Recipe recipe, long recipeId, IDbConnection connection,
                                                      CancellationToken token)
         {
             foreach (var ingredient in recipe.Ingredients)
             {
                 await connection.ExecuteAsync(
                         new CommandDefinition(SqliteCommandTexts.InsertIntoRecipesIngredients,
-                            new { recipe.Slug, ingredient.Name, ingredient.Amount, ingredient.Unit },
+                            new { recipeId, ingredient.Name, ingredient.Amount, ingredient.Unit },
                             cancellationToken: token));
             }
         }
@@ -259,9 +260,10 @@ namespace Cookbook.Infrastructur.Persistance //restructure DB to use rowID as FK
 
             if (result > 0)
             {
-                await AttachIngredientsToRecipe(recipe, connection, token);
-                await AttachStepsToRecipe(recipe, connection, token);
-                await AttachTagsToRecipe(recipe, connection, token);
+                var lastInsertRowId = connection.QuerySingle<long>(SqliteCommandTexts.GetLastInsertRowId);
+                await AttachIngredientsToRecipe(recipe, lastInsertRowId, connection, token);
+                await AttachStepsToRecipe(recipe, lastInsertRowId, connection, token);
+                await AttachTagsToRecipe(recipe, lastInsertRowId, connection, token);
             }
 
             return result > 0;

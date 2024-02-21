@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 Cookbook.Application/Cookbook.sqbpro
 *.db
+Cookbook.Application/Cookbook.db

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cookbook.API.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class RecipesController : ControllerBase
     {
         private readonly IRecipebookReadService recipebookReadServices;
@@ -19,7 +20,7 @@ namespace Cookbook.API.Controllers
             this.recipebookWriteServices = recipebookWriteServices;
         }
 
-        [HttpPost(ApiEndPoints.Recipes.Create)]
+        [HttpPost("")]
         public async Task<IActionResult> Create([FromBody] CreateRecipeRequest request,
                                                 CancellationToken token)
         {
@@ -32,7 +33,7 @@ namespace Cookbook.API.Controllers
             return CreatedAtAction(nameof(Get), new { idOrSlug = response.Id }, response);
         }
 
-        [HttpGet(ApiEndPoints.Recipes.Get)]
+        [HttpGet("{idOrSlug}")]
         public async Task<IActionResult> Get([FromRoute] string idOrSlug,
                                                 CancellationToken token)
         {
@@ -49,7 +50,7 @@ namespace Cookbook.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet(ApiEndPoints.Recipes.GetAll)]
+        [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken token)
         {
             var recipes = await recipebookReadServices.GetAllAsync(token);
@@ -59,14 +60,14 @@ namespace Cookbook.API.Controllers
             return Ok(responses);
         }
 
-        [HttpGet(ApiEndPoints.Recipes.GetAllTitles)]
+        [HttpGet("titles")]
         public async Task<IActionResult> GetAllTitles(CancellationToken token)
         {
             var recipeTitles = await recipebookReadServices.GetAllTitlesAsync(token);
             return Ok(recipeTitles);
         }
 
-        [HttpGet(ApiEndPoints.Recipes.GetAllTitlesWithTag)]
+        [HttpGet("titles/tags/{tag}")]
         public async Task<IActionResult> GetAllWithTag([FromRoute] string tag,
                                                        CancellationToken token)
         {
@@ -76,7 +77,7 @@ namespace Cookbook.API.Controllers
             return Ok(recipeTitles);
         }
 
-        [HttpPut(ApiEndPoints.Recipes.Update)]
+        [HttpPut("{idOrSlug}")]
         public async Task<IActionResult> Update([FromRoute] string idOrSlug, 
                                                 [FromBody] UpdateRecipeRequest request,
                                                 CancellationToken token)
@@ -98,7 +99,7 @@ namespace Cookbook.API.Controllers
             return Ok(response);
         }
 
-        [HttpDelete(ApiEndPoints.Recipes.Delete)]
+        [HttpDelete("{idOrSlug}")]
         public async Task<IActionResult> Delete([FromRoute] string idOrSlug,
                                                 CancellationToken token)
         {

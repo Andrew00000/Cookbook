@@ -3,10 +3,10 @@ using Dapper;
 using Microsoft.Data.Sqlite;
 using SQLitePCL;
 
-namespace Cookbook.Application.Database
+namespace Cookbook.Repository.Database
 {
     public interface IDbConnectionFactory
     {
-        Task<IDbConnection> CreateConnectionAsync (CancellationToken token);
+        Task<IDbConnection> CreateConnectionAsync(CancellationToken token);
     }
 }

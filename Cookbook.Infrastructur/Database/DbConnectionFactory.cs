@@ -1,9 +1,8 @@
-﻿using Cookbook.Application.Database;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using SQLitePCL;
 using System.Data;
 
-namespace Cookbook.Infrastructur.Persistance
+namespace Cookbook.Repository.Database
 {
     public class SqliteConnectionFactory : IDbConnectionFactory
     {

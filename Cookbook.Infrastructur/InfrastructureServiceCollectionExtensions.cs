@@ -1,5 +1,6 @@
 ﻿using Cookbook.Application.Database;
 using Cookbook.Infrastructur.Persistance;
+using Cookbook.Repository.Database;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cookbook.Infrastructur

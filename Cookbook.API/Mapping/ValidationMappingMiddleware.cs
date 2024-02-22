@@ -33,6 +33,21 @@ namespace Cookbook.API.Mapping
 
                 await context.Response.WriteAsJsonAsync(validationFailureResponse);
             }
+            catch (Exception ex)
+            {
+                context.Response.StatusCode = 400;
+
+                var validationFailureResponse = new ValidationFailureResponse
+                {
+                    Errors = new[]{ new ValidationResponse
+                    {
+                        PropertyName = "",
+                        Message = "Something went wrong: \n" + ex.Message
+                    }}
+                };
+
+                await context.Response.WriteAsJsonAsync(validationFailureResponse);
+            }
         }
     }
 }

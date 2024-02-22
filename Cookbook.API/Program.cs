@@ -3,13 +3,14 @@ using Cookbook.Application;
 using Cookbook.Repository.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication();
-builder.Services.AddDatabase();
+builder.Services.AddDatabase(config["Database:ConnectionString"]!);
 builder.Services.AddRepositories();
 
 var app = builder.Build();

@@ -5,8 +5,12 @@ namespace Cookbook.Repository.Database
 {
     public class SqliteConnectionFactory : IDbConnectionFactory
     {
-        private readonly string connectionString =
-                    $@"Data Source={Directory.GetParent(Environment.CurrentDirectory)!.FullName}\Cookbook.Application\Cookbook.db";
+        private readonly string connectionString;
+                    
+        public SqliteConnectionFactory(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
 
         public async Task<IDbConnection> CreateConnectionAsync(CancellationToken token)
         {

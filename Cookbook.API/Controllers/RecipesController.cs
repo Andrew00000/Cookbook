@@ -33,13 +33,24 @@ namespace Cookbook.API.Controllers
             return CreatedAtAction(nameof(Get), new { idOrSlug = response.Id }, response);
         }
 
-        [HttpGet("{idOrSlug}")]
-        public async Task<IActionResult> Get([FromRoute] string idOrSlug,
-                                                CancellationToken token)
+        [HttpGet("{slug}")]
+        public async Task<IActionResult> Get([FromRoute] string slug, CancellationToken token)
         {
-            var recipe = Guid.TryParse(idOrSlug, out var id)
-                            ? await recipebookReadServices.GetByIdAsync(id, token)
-                            : await recipebookReadServices.GetBySlugAsync(idOrSlug, token);
+            var recipe = await recipebookReadServices.GetBySlugAsync(slug, token);
+
+            if (recipe is null)
+            {
+                return NotFound();
+            }
+
+            var response = recipe.MapToResponse();
+            return Ok(response);
+        }
+
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> Get([FromRoute] Guid id, CancellationToken token)
+        {
+            var recipe = await recipebookReadServices.GetByIdAsync(id, token);
 
             if (recipe is null)
             {

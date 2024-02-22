@@ -1,4 +1,4 @@
-﻿using Cookbook.Repository.Database;
+﻿using Cookbook.Repository.Database.Schema;
 
 namespace Cookbook.Repository.Repositories
 {

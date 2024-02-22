@@ -1,4 +1,4 @@
-﻿namespace Cookbook.Repository.Database
+﻿namespace Cookbook.Repository.Database.Schema
 {
     internal class RecipesTable
     {
@@ -7,7 +7,7 @@
         public const string Author = "Author";
         public const string NumberOfPortions = "NumberOfPortions";
         public const string Calories = "Calories";
-        public const string Slug = "Slug"; 
+        public const string Slug = "Slug";
         public const string Guid = "Guid";
     }
 }

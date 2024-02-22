@@ -1,4 +1,4 @@
-﻿namespace Cookbook.Repository.Database
+﻿namespace Cookbook.Repository.Database.Schema
 {
     internal class TagsTable
     {

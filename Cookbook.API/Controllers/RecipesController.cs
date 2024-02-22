@@ -99,6 +99,11 @@ namespace Cookbook.API.Controllers
                                 await recipebookReadServices
                                             .GetIdFromSlugAsync(idOrSlug, token));
 
+            if (recipe is null)
+            {
+                return NotFound();
+            }
+
             var updatedRecipe = await recipebookWriteServices.UpdateByIdAsync(recipe, token);
 
             if (updatedRecipe is null)

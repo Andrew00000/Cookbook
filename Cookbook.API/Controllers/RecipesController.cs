@@ -24,6 +24,11 @@ namespace Cookbook.API.Controllers
         public async Task<IActionResult> Create([FromBody] CreateRecipeRequest request,
                                                 CancellationToken token)
         {
+            //if (!ModelState.IsValid)
+            //{
+            //return BadRequest(ModelState);
+            //}
+
             var recipe = request.MapToRecipe();
 
             await recipebookWriteServices.CreateAsync(recipe, token);

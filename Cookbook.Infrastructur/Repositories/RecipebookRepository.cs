@@ -172,6 +172,7 @@ namespace Cookbook.Repository.Repositories
             var rawGuid = await connection.QuerySingleOrDefaultAsync(
                        new CommandDefinition(SqliteCommandTexts.GetIdFromSlug,
                                              new { slug }, cancellationToken: token));
+
             return new Guid(rawGuid!.Guid);
         }
 

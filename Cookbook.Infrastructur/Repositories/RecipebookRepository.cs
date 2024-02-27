@@ -126,12 +126,16 @@ namespace Cookbook.Repository.Repositories
             using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
             using var transaction = connection.BeginTransaction();
 
-            var deleted = await DeleteByIdAsync(recipe.Id, connection, token);
-            if (!deleted)
+            var ingredientsDeleted = await DeleteIngredientsByIdAsync(recipe.Id, connection, token);
+            var stepsDeleted = await DeleteStepsByIdAsync(recipe.Id, connection, token);
+            var tagsDeleted = await DeleteTagsByIdAsync(recipe.Id, connection, token);
+
+            if (!ingredientsDeleted || !stepsDeleted)
             {
                 return false;
             }
-            var result = await CreateAsync(recipe, connection, token);
+
+            var result = await UpdateAsync(recipe, connection, token);
 
             transaction.Commit();
             return result;
@@ -255,16 +259,16 @@ namespace Cookbook.Repository.Repositories
             }
         }
 
-        private async Task<bool> CreateAsync(Recipe recipe, IDbConnection connection,
+        private async Task<bool> UpdateAsync(Recipe recipe, IDbConnection connection,
                                              CancellationToken token)
         {
+
             var result = await connection.ExecuteAsync(
-                            new CommandDefinition(SqliteCommandTexts.Create, recipe,
+                            new CommandDefinition(SqliteCommandTexts.Update, recipe,
                                                   cancellationToken: token));
 
             if (result > 0)
             {
-                recipe.Id = connection.QuerySingle<long>(SqliteCommandTexts.GetLastInsertRowId);
                 await AttachIngredientsToRecipe(recipe, connection, token);
                 await AttachStepsToRecipe(recipe, connection, token);
                 await AttachTagsToRecipe(recipe, connection, token);
@@ -278,6 +282,33 @@ namespace Cookbook.Repository.Repositories
         {
             var result = await connection.ExecuteAsync(new CommandDefinition(
                                             SqliteCommandTexts.DeleteById, new { id },
+                                            cancellationToken: token));
+            return result > 0;
+        }
+
+        private async Task<bool> DeleteIngredientsByIdAsync(long id, IDbConnection connection,
+                                                 CancellationToken token)
+        {
+            var result = await connection.ExecuteAsync(new CommandDefinition(
+                                            SqliteCommandTexts.DeleteIngredientsById, new { id },
+                                            cancellationToken: token));
+            return result > 0;
+        }
+
+        private async Task<bool> DeleteStepsByIdAsync(long id, IDbConnection connection,
+                                                 CancellationToken token)
+        {
+            var result = await connection.ExecuteAsync(new CommandDefinition(
+                                            SqliteCommandTexts.DeleteStepsById, new { id },
+                                            cancellationToken: token));
+            return result > 0;
+        }
+
+        private async Task<bool> DeleteTagsByIdAsync(long id, IDbConnection connection,
+                                                 CancellationToken token)
+        {
+            var result = await connection.ExecuteAsync(new CommandDefinition(
+                                            SqliteCommandTexts.DeleteTagsById, new { id },
                                             cancellationToken: token));
             return result > 0;
         }

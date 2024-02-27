@@ -46,14 +46,24 @@ namespace Cookbook.Repository.Repositories
                                               WHERE {DbTables.Recipes}.{RecipesTable.Slug} = @slug";
 
         public const string Update = $@"UPDATE {DbTables.Recipes} SET {RecipesTable.Title} = @Title, 
-                                                    {RecipesTable.Author} = @Author,
-                                                    {RecipesTable.NumberOfPortions} = @NumberOfPortions,
-                                                    {RecipesTable.Calories} = @Calories,
-                                                    {RecipesTable.Slug} = @Slug";
+                                                                      {RecipesTable.Author} = @Author,
+                                                                      {RecipesTable.NumberOfPortions} = @NumberOfPortions,
+                                                                      {RecipesTable.Calories} = @Calories,
+                                                                      {RecipesTable.Slug} = @Slug
+                                                                WHERE {RecipesTable.Id } = @Id";
 
         public const string DeleteById = $@"DELETE FROM {DbTables.Recipes} WHERE {RecipesTable.Id} = @id";
 
         public const string DeleteBySlug = $@"DELETE FROM {DbTables.Recipes} WHERE {RecipesTable.Slug} = @slug";
+
+        public const string DeleteIngredientsById = $@"DELETE FROM {DbTables.Ingredients} 
+                                                              WHERE {IngredientsTable.RecipeId} = @id";
+
+        public const string DeleteStepsById = $@"DELETE FROM {DbTables.Steps} 
+                                                              WHERE {StepsTable.RecipeId} = @id";
+
+        public const string DeleteTagsById = $@"DELETE FROM {DbTables.Tags} 
+                                                              WHERE {TagsTable.RecipeId} = @id";
 
         public const string ExistsById = $@"SELECT COUNT(1) FROM {DbTables.Recipes} WHERE {RecipesTable.Id} = @id";
 

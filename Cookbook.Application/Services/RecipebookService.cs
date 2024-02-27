@@ -26,13 +26,13 @@ namespace Cookbook.Application.Services
                                                        CancellationToken token)
             => recipebookRepository.GetAllTitlesWithTagAsync(tag, token);
 
-        public Task<Recipe?> GetByIdAsync(Guid id, CancellationToken token)
+        public Task<Recipe?> GetByIdAsync(long id, CancellationToken token)
             => recipebookRepository.GetByIdAsync(id, token);
 
         public Task<Recipe?> GetBySlugAsync(string slug, CancellationToken token)
             => recipebookRepository.GetBySlugAsync(slug, token);
 
-        public Task<Guid> GetIdFromSlugAsync(string idOrSlug, CancellationToken token)
+        public Task<long> GetIdFromSlugAsync(string idOrSlug, CancellationToken token)
             => recipebookRepository.GetIdFromSlugAsync(idOrSlug, token);
 
 
@@ -57,7 +57,7 @@ namespace Cookbook.Application.Services
             return recipe;
         }
 
-        public Task<bool> DeleteByIdAsync(Guid id, CancellationToken token)
+        public Task<bool> DeleteByIdAsync(long id, CancellationToken token)
             => recipebookRepository.DeleteByIdAsync(id, token);
 
         public Task<bool> DeleteBySlugAsync(string slug, CancellationToken token)

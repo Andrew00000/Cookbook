@@ -3,7 +3,7 @@
     public class UpdateRecipeRequest
     {
         public required string Title { get; init; }
-        public string Author { get; init; } = string.Empty;
+        public required string Author { get; init; }
         public required int NumberOfPortions { get; init; }
         public int Calories { get; init; } = 0;
         public required IEnumerable<string> Ingredients { get; init; }

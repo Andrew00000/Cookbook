@@ -2,7 +2,7 @@
 {
      public class RecipeResponse
     {
-        public required Guid Id { get; init; }
+        public required long Id { get; init; }
         public required string Title { get; init; }
         public string Author { get; init; } = string.Empty;
         public required int NumberOfPortions { get; init; }

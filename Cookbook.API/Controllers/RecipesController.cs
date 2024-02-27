@@ -35,7 +35,7 @@ namespace Cookbook.API.Controllers
 
             var response = recipe.MapToResponse();
 
-            return CreatedAtAction(nameof(Get), new { idOrSlug = response.Id }, response);
+            return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
         }
 
         [HttpGet("{slug}")]
@@ -52,8 +52,8 @@ namespace Cookbook.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> Get([FromRoute] Guid id, CancellationToken token)
+        [HttpGet("{id:long}")]
+        public async Task<IActionResult> Get([FromRoute] long id, CancellationToken token)
         {
             var recipe = await recipebookReadServices.GetByIdAsync(id, token);
 
@@ -98,7 +98,7 @@ namespace Cookbook.API.Controllers
                                                 [FromBody] UpdateRecipeRequest request,
                                                 CancellationToken token)
         {
-            var recipe = Guid.TryParse(idOrSlug, out var id)
+            var recipe = Int64.TryParse(idOrSlug, out var id)
                             ? request.MapToRecipe(id)
                             : request.MapToRecipe(
                                 await recipebookReadServices
@@ -124,7 +124,7 @@ namespace Cookbook.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] string idOrSlug,
                                                 CancellationToken token)
         {
-            var deleted = Guid.TryParse(idOrSlug, out var id)
+            var deleted = Int64.TryParse(idOrSlug, out var id)
                             ? await recipebookWriteServices.DeleteByIdAsync(id, token)
                             : await recipebookWriteServices.DeleteBySlugAsync(idOrSlug, token);
 

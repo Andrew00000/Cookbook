@@ -10,7 +10,6 @@ namespace Cookbook.API.Mapping
         {
             return new Recipe
             {
-                Id = Guid.NewGuid(),
                 Title = request.Title,
                 Author = request.Author,
                 Tags = request.Tags.Select(x => x.ToLower()),
@@ -21,7 +20,7 @@ namespace Cookbook.API.Mapping
             };
         }
 
-        public static Recipe MapToRecipe(this UpdateRecipeRequest request, Guid id)
+        public static Recipe MapToRecipe(this UpdateRecipeRequest request, long id)
         {
             return new Recipe
             {

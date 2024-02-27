@@ -139,11 +139,26 @@ namespace Cookbook.API.Controllers
             var response = updatedRecipe.MapToResponse();
             return Ok(response);
         }
+
+        [HttpDelete("{id:long}")]
+        public async Task<IActionResult> Delete([FromRoute] long id,
                                                 CancellationToken token)
         {
-            var deleted = Int64.TryParse(idOrSlug, out var id)
-                            ? await recipebookWriteServices.DeleteByIdAsync(id, token)
-                            : await recipebookWriteServices.DeleteBySlugAsync(idOrSlug, token);
+            var deleted = await recipebookWriteServices.DeleteByIdAsync(id, token);
+
+            if (!deleted)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete("{slug}")]
+        public async Task<IActionResult> Delete([FromRoute] string slug,
+                                                CancellationToken token)
+        {
+            var deleted = await recipebookWriteServices.DeleteBySlugAsync(slug, token);
 
             if (!deleted)
             {

@@ -93,16 +93,12 @@ namespace Cookbook.API.Controllers
             return Ok(recipeTitles);
         }
 
-        [HttpPut("{idOrSlug}")]
-        public async Task<IActionResult> Update([FromRoute] string idOrSlug, 
+        [HttpPut("{id:long}")]
+        public async Task<IActionResult> Update([FromRoute] long id, 
                                                 [FromBody] UpdateRecipeRequest request,
                                                 CancellationToken token)
         {
-            var recipe = Int64.TryParse(idOrSlug, out var id)
-                            ? request.MapToRecipe(id)
-                            : request.MapToRecipe(
-                                await recipebookReadServices
-                                            .GetIdFromSlugAsync(idOrSlug, token));
+            var recipe = request.MapToRecipe(id);
 
             if (recipe is null)
             {
@@ -120,8 +116,29 @@ namespace Cookbook.API.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{idOrSlug}")]
-        public async Task<IActionResult> Delete([FromRoute] string idOrSlug,
+        [HttpPut("{slug}")]
+        public async Task<IActionResult> Update([FromRoute] string slug,
+                                                [FromBody] UpdateRecipeRequest request,
+                                                CancellationToken token)
+        {
+            var recipe =  request.MapToRecipe(
+                                        await recipebookReadServices.GetIdFromSlugAsync(slug, token));
+
+            if (recipe is null)
+            {
+                return NotFound();
+            }
+
+            var updatedRecipe = await recipebookWriteServices.UpdateByIdAsync(recipe, token);
+
+            if (updatedRecipe is null)
+            {
+                return NotFound();
+            }
+
+            var response = updatedRecipe.MapToResponse();
+            return Ok(response);
+        }
                                                 CancellationToken token)
         {
             var deleted = Int64.TryParse(idOrSlug, out var id)

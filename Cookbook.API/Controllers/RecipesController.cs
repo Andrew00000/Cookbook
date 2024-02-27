@@ -1,5 +1,4 @@
 ﻿using Cookbook.API.Mapping;
-using Cookbook.Application.Database;
 using Cookbook.Application.Services;
 using Cookbook.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +12,7 @@ namespace Cookbook.API.Controllers
         private readonly IRecipebookReadService recipebookReadServices;
         private readonly IRecipebookWriteService recipebookWriteServices;
 
-        public RecipesController(IRecipebookReadService recipebookReadServices, 
+        public RecipesController(IRecipebookReadService recipebookReadServices,
                                  IRecipebookWriteService recipebookWriteServices)
         {
             this.recipebookReadServices = recipebookReadServices;
@@ -94,7 +93,7 @@ namespace Cookbook.API.Controllers
         }
 
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> Update([FromRoute] long id, 
+        public async Task<IActionResult> Update([FromRoute] long id,
                                                 [FromBody] UpdateRecipeRequest request,
                                                 CancellationToken token)
         {
@@ -121,7 +120,7 @@ namespace Cookbook.API.Controllers
                                                 [FromBody] UpdateRecipeRequest request,
                                                 CancellationToken token)
         {
-            var recipe =  request.MapToRecipe(
+            var recipe = request.MapToRecipe(
                                         await recipebookReadServices.GetIdFromSlugAsync(slug, token));
 
             if (recipe is null)

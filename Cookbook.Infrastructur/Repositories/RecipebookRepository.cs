@@ -218,7 +218,7 @@ namespace Cookbook.Repository.Repositories
                                     .Select(x => new Ingredient
                                     {
                                         Amount = int.Parse(x.Split(' ')[0]),
-                                        Unit = (UnitType)int.Parse(x.Split(' ')[1]),
+                                        Unit = x.Split(' ')[1],
                                         Name = x.Split(' ')[2]
                                     });
         private async Task AttachTagsToRecipe(Recipe recipe, IDbConnection connection,

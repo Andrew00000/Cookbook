@@ -58,21 +58,15 @@ namespace Cookbook.API.Mapping
         {
             var splitIngredient = rawIngredient.Split(' ');
             var amount = int.Parse(splitIngredient[0]);
+            var unit = splitIngredient[1];
             var name = splitIngredient[2];
-            if (Enum.TryParse<UnitType>(splitIngredient[1], ignoreCase: true, out UnitType unit))
+
+            return new Ingredient
             {
-                return new Ingredient
-                {
-                    Amount = amount,
-                    Unit = unit,
-                    Name = name
-                }
-                ;
-            }
-            else
-            {
-                throw new ArgumentException($"Invalid ingredient: {rawIngredient}");
-            }
+                Amount = amount,
+                Unit = unit,
+                Name = name
+            };
         }
 
         private static string IngredientToString(Ingredient ingredient)

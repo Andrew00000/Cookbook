@@ -8,189 +8,211 @@ namespace Cookbook.Repository.Repositories
 {
     public class RecipebookRepository : IRecipebookRepository
     {
-        private readonly IDbConnectionFactory dbConnectionFactory;
+        private readonly IDbManipulator dbManipulator;
 
-        public RecipebookRepository(IDbConnectionFactory dbConnectionFactory)
+        public RecipebookRepository(IDbManipulator dbManipulator)
         {
-            this.dbConnectionFactory = dbConnectionFactory;
+            this.dbManipulator = dbManipulator;
         }
 
         public async Task<bool> CreateAsync(Recipe recipe, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
-            using var transaction = connection.BeginTransaction();
-
-            var result = await connection.ExecuteAsync(
-                            new CommandDefinition(SqliteCommandTexts.Create,
-                                                  recipe, cancellationToken: token));
-
-            if (result > 0)
+            return await dbManipulator.RunQuery(async connection =>
             {
-                recipe.Id = connection.QuerySingle<long>(SqliteCommandTexts.GetLastInsertRowId);
-                await AttachIngredientsToRecipe(recipe, connection, token);
-                await AttachStepsToRecipe(recipe, connection, token);
-                await AttachTagsToRecipe(recipe, connection, token);
-            }
+                using var transaction = connection.BeginTransaction();
 
-            transaction.Commit();
+                var result = await connection.ExecuteAsync(
+                                new CommandDefinition(SqliteCommandTexts.Create,
+                                                      recipe, cancellationToken: token));
 
-            return result > 0;
+                if (result > 0)
+                {
+                    recipe.Id = connection.QuerySingle<long>(SqliteCommandTexts.GetLastInsertRowId);
+                    await AttachIngredientsToRecipe(recipe, connection, token);
+                    await AttachStepsToRecipe(recipe, connection, token);
+                    await AttachTagsToRecipe(recipe, connection, token);
+                }
+
+                transaction.Commit();
+
+                return result > 0;
+            }, token);
         }
 
         public async Task<IEnumerable<Recipe>> GetAllAsync(CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
-            var rawRecipes = await connection.QueryAsync(
+            return await dbManipulator.RunQuery(async connection =>
+            {
+                var rawRecipes = await connection.QueryAsync(
                             new CommandDefinition(SqliteCommandTexts.GetAll,
                                                   cancellationToken: token));
 
-            if (rawRecipes is null)
-            {
-                return Enumerable.Empty<Recipe>();
-            }
+                if (rawRecipes is null)
+                {
+                    return Enumerable.Empty<Recipe>();
+                }
 
-            var recipes = new List<Recipe>();
+                var recipes = new List<Recipe>();
 
-            foreach (var rawRecipe in rawRecipes)
-            {
-                var recipe = ParseRecipe(rawRecipe);
+                foreach (var rawRecipe in rawRecipes)
+                {
+                    var recipe = ParseRecipe(rawRecipe);
 
-                recipes.Add(recipe);
-            }
+                    recipes.Add(recipe);
+                }
 
-            return recipes.OrderBy(x => x.Title);
+                return recipes.OrderBy(x => x.Title);
+            }, token);
         }
 
         public async Task<Recipe?> GetByIdAsync(long id, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
+            return await dbManipulator.RunQuery(async connection =>
+            {
 
-            var rawRecipe = await connection.QuerySingleOrDefaultAsync(
+                var rawRecipe = await connection.QuerySingleOrDefaultAsync(
                             new CommandDefinition(SqliteCommandTexts.GetById, 
                                                   new { id }, cancellationToken: token));
 
-            if (rawRecipe is null)
-            {
-                return null;
-            }
+                if (rawRecipe is null)
+                {
+                    return null;
+                }
 
-            return ParseRecipe(rawRecipe);
+                return ParseRecipe(rawRecipe);
+            }, token);
         }
 
         public async Task<Recipe?> GetBySlugAsync(string slug, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
+            return await dbManipulator.RunQuery(async connection =>
+            {
 
-            var rawRecipe = await connection.QuerySingleOrDefaultAsync(
+                var rawRecipe = await connection.QuerySingleOrDefaultAsync(
                             new CommandDefinition(SqliteCommandTexts.GetBySlug, 
                                                   new { slug }, cancellationToken: token));
 
-            if (rawRecipe is null)
-            {
-                return null;
-            }
+                if (rawRecipe is null)
+                {
+                    return null;
+                }
 
-            return ParseRecipe(rawRecipe);
+                return ParseRecipe(rawRecipe);
+            }, token);
         }
 
         public async Task<IEnumerable<string>> GetAllTitlesAsync(CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
+            return await dbManipulator.RunQuery(async connection =>
+            {
 
-            var titles = await connection.QueryAsync<string>(
+                var titles = await connection.QueryAsync<string>(
                                 new CommandDefinition(SqliteCommandTexts.GetAllTitles,
                                                       cancellationToken: token));
 
-            return titles?.Order() ?? Enumerable.Empty<string>();
+                return titles?.Order() ?? Enumerable.Empty<string>();
+            }, token);
         }
 
         public async Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag, 
                                                              CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
-
-            var titles = await connection.QueryAsync<string>(
+            return await dbManipulator.RunQuery(async connection =>
+            {
+                var titles = await connection.QueryAsync<string>(
                                 new CommandDefinition(SqliteCommandTexts.GetAllTitlesWithTag, 
                                                       new { tag }, cancellationToken: token));
 
-            if (titles is null)
-            {
-                return Enumerable.Empty<string>();
-            }
+                if (titles is null)
+                {
+                    return Enumerable.Empty<string>();
+                }
 
-            return titles.Order();
+                return titles.Order();
+            }, token);
         }
 
         public async Task<bool> UpdateByIdAsync(Recipe recipe, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
-            using var transaction = connection.BeginTransaction();
-
-            var ingredientsDeleted = await DeleteIngredientsByIdAsync(recipe.Id, connection, token);
-            var stepsDeleted = await DeleteStepsByIdAsync(recipe.Id, connection, token);
-            var tagsDeleted = await DeleteTagsByIdAsync(recipe.Id, connection, token);
-
-            if (!ingredientsDeleted || !stepsDeleted)
+            return await dbManipulator.RunQuery(async connection =>
             {
-                return false;
-            }
+                using var transaction = connection.BeginTransaction();
 
-            var result = await UpdateAsync(recipe, connection, token);
+                var ingredientsDeleted = await DeleteIngredientsByIdAsync(recipe.Id, connection, token);
+                var stepsDeleted = await DeleteStepsByIdAsync(recipe.Id, connection, token);
+                var tagsDeleted = await DeleteTagsByIdAsync(recipe.Id, connection, token);
 
-            transaction.Commit();
-            return result;
+                if (!ingredientsDeleted || !stepsDeleted)
+                {
+                    return false;
+                }
+
+                var result = await UpdateAsync(recipe, connection, token);
+
+                transaction.Commit();
+                return result;
+            }, token);
         }
 
         public async Task<bool> DeleteByIdAsync(long id, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
-            using var transaction = connection.BeginTransaction();
+            return await dbManipulator.RunQuery(async connection =>
+            {
+                using var transaction = connection.BeginTransaction();
 
-            var result = await connection.ExecuteAsync(new CommandDefinition(
-                                            SqliteCommandTexts.DeleteById, 
-                                            new { id },
-                                            cancellationToken: token));
+                var result = await connection.ExecuteAsync(new CommandDefinition(
+                                                SqliteCommandTexts.DeleteById, 
+                                                new { id },
+                                                cancellationToken: token));
 
-            transaction.Commit();
-            return result > 0;
+                transaction.Commit();
+                return result > 0;
+            }, token);
         }
 
         public async Task<bool> DeleteBySlugAsync(string slug, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
-            using var transaction = connection.BeginTransaction();
+            return await dbManipulator.RunQuery(async connection =>
+            {
+                using var transaction = connection.BeginTransaction();
 
-            var result = await connection.ExecuteAsync(new CommandDefinition(
-                                            SqliteCommandTexts.DeleteBySlug, 
-                                            new { slug },
-                                            cancellationToken: token));
+                var result = await connection.ExecuteAsync(new CommandDefinition(
+                                                SqliteCommandTexts.DeleteBySlug, 
+                                                new { slug },
+                                                cancellationToken: token));
 
-            transaction.Commit();
-            return result > 0;
+                transaction.Commit();
+                return result > 0;
+            }, token);
         }
 
         public async Task<long> GetIdFromSlugAsync(string slug, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
-            var rawId = await connection.QuerySingleOrDefaultAsync(
+            return await dbManipulator.RunQuery(async connection =>
+            {
+                var rawId = await connection.QuerySingleOrDefaultAsync(
                        new CommandDefinition(SqliteCommandTexts.GetIdFromSlug,
                                              new { slug }, cancellationToken: token));
-            if(rawId is null)
-            {
-                throw new ArgumentNullException("There is no recipe with that slug");
-            }
+                if(rawId is null)
+                {
+                    throw new ArgumentNullException("There is no recipe with that slug");
+                }
 
-            return (long)rawId.Id;
+                return (long)rawId.Id;
+            }, token);
         }
 
         public async Task<bool> ExistsByIdAsync(long id, CancellationToken token)
         {
-            using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
-            return await connection.ExecuteScalarAsync<bool>(
-                                new CommandDefinition(SqliteCommandTexts.ExistsById, 
+            return await dbManipulator.RunQuery(async connection =>
+            {
+                return await connection.ExecuteScalarAsync<bool>(
+                                new CommandDefinition(SqliteCommandTexts.ExistsById,
                                     new { id },
                                     cancellationToken: token));
+            }, token);
         }
+
 
         private Recipe ParseRecipe(dynamic rawRecipe)
         {

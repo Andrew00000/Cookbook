@@ -16,6 +16,7 @@ namespace Cookbook.Repository.Repositories
         public static IServiceCollection AddDatabase(this IServiceCollection services, string connectionString)
         {
             services.AddSingleton<IDbConnectionFactory>(_ => new SqliteConnectionFactory(connectionString));
+            services.AddSingleton<IDbManipulator, DbManipulator>();
 
             return services;
         }

@@ -1,6 +1,8 @@
 ﻿using Cookbook.Application.Database;
 using Cookbook.Repository.Database;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Cookbook.Repository.Repositories
 {
@@ -13,9 +15,11 @@ namespace Cookbook.Repository.Repositories
             return services;
         }
 
-        public static IServiceCollection AddDatabase(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IDbConnectionFactory>(_ => new SqliteConnectionFactory(connectionString));
+            services.Configure<DatabaseConfiguration>(configuration.GetSection("Database"));
+            services.AddSingleton(sp => sp.GetRequiredService<IOptions<DatabaseConfiguration>>().Value);
+            services.AddSingleton<IDbConnectionFactory, SqliteConnectionFactory>();
             services.AddSingleton<IDbManipulator, DbManipulator>();
 
             return services;

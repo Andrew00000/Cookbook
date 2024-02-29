@@ -3,18 +3,18 @@ using System.Data;
 
 namespace Cookbook.Repository.Database
 {
-    public class SqliteConnectionFactory : IDbConnectionFactory
+    internal class SqliteConnectionFactory : IDbConnectionFactory
     {
-        private readonly string connectionString;
+        private readonly DatabaseConfiguration databaseConfiguration;
                     
-        public SqliteConnectionFactory(string connectionString)
+        public SqliteConnectionFactory(DatabaseConfiguration databaseConfiguration)
         {
-            this.connectionString = connectionString;
+            this.databaseConfiguration = databaseConfiguration;
         }
 
         public async Task<IDbConnection> CreateConnectionAsync(CancellationToken token)
         {
-            var connection = new SqliteConnection(connectionString);
+            var connection = new SqliteConnection($"Data Source = {databaseConfiguration.Path}");
             await connection.OpenAsync(token);
 
             return connection;

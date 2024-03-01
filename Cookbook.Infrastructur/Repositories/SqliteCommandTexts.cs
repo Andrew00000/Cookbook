@@ -28,12 +28,12 @@ namespace Cookbook.Repository.Repositories
                                         {DefaultGroupBy}";
 
         public const string GetBySlug = $@"{GetJoinedBase}
-                        WHERE {DbTables.Recipes}.{RecipesTable.Slug} = @slug
-                        {DefaultGroupBy}";
+                                            WHERE {DbTables.Recipes}.{RecipesTable.Slug} = @slug
+                                            {DefaultGroupBy}";
 
         public const string GetById = $@"{GetJoinedBase}
-                        WHERE {DbTables.Recipes}.{RecipesTable.Id} = @id
-                        {DefaultGroupBy}";
+                                            WHERE {DbTables.Recipes}.{RecipesTable.Id} = @id
+                                            {DefaultGroupBy}";
 
         public const string GetAllTitles = $@"SELECT {DbTables.Recipes}.{RecipesTable.Title} FROM {DbTables.Recipes}";
 

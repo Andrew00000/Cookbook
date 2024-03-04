@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"\",\r\n    \"author\": \"ValidationTest Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"raw": "{\r\n    \"title\": \"\",\r\n    \"author\": \"ValidationTest Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -74,7 +74,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": -1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": -1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -132,7 +132,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -163,7 +163,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [\"1 l water\"],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+					"raw": "{\r\n    \"title\": \"Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -192,7 +192,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"Air\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Easy\"],\r\n    \"ingredients\": [\"1 l air\"],\r\n    \"steps\": [\"Inhale\", \"Exhale\"]\r\n}",
+					"raw": "{\r\n    \"title\": \"Air\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\" : \"air\"}],\r\n    \"steps\": [\"Inhale\", \"Exhale\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -221,7 +221,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"Spaghetti Bolognese\",\r\n    \"author\": \"John Doe\",\r\n    \"portions\": 4,\r\n    \"calories\" : 520,\r\n    \"tags\": [ \"Italian\", \"Pasta\"],\r\n    \"ingredients\": [\"500 g Ground Beef\", \"1 piece Onion\", \"2 cloves Garlic\"],\r\n    \"steps\": [\"Heat olive oil in a pan\", \"Saute onions and garlic until softened\", \"Add ground beef and cook until browned\"]\r\n}",
+					"raw": "{\r\n    \"title\": \"Spaghetti Bolognese\",\r\n    \"author\": \"John Doe\",\r\n    \"numberofportions\": 4,\r\n    \"calories\" : 520,\r\n    \"tags\": [ \"Italian\", \"Pasta\"],\r\n    \"ingredients\":  [\r\n    {\r\n      \"amount\": 500,\r\n      \"unit\": \"g\",\r\n      \"name\": \"Ground Beef\"\r\n    },\r\n    {\r\n      \"amount\": 1,\r\n      \"unit\": \"piece\",\r\n      \"name\": \"Onion\"\r\n    },\r\n    {\r\n      \"amount\": 2,\r\n      \"unit\": \"cloves\",\r\n      \"name\": \"Garlic\"\r\n    }],\r\n    \"steps\": [\"Heat olive oil in a pan\", \"Saute onions and garlic until softened\", \"Add ground beef and cook until browned\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

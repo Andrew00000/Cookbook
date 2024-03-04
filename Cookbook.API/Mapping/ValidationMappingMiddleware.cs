@@ -26,8 +26,7 @@ namespace Cookbook.API.Mapping
                 {
                     Errors = ex.Errors.Select(x => new ValidationResponse
                     {
-                        PropertyName = x.PropertyName,
-                        Message = x.ErrorMessage
+                        Message = $@"Something went wrong with {x.PropertyName}: {x.ErrorMessage}"
                     })
                 };
 
@@ -41,7 +40,6 @@ namespace Cookbook.API.Mapping
                 {
                     Errors = new[]{ new ValidationResponse
                     {
-                        PropertyName = "",
                         Message = "Something went wrong: \n" + ex.Message
                     }}
                 };

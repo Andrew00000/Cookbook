@@ -243,6 +243,7 @@ namespace Cookbook.Repository.Repositories
                                         Unit = x.Split(' ')[1],
                                         Name = x.Split(' ')[2]
                                     });
+                                    .OrderBy(x => x.Name);
         private async Task AttachTagsToRecipe(Recipe recipe, IDbConnection connection,
                                               CancellationToken token)
         {

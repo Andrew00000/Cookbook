@@ -237,12 +237,20 @@ namespace Cookbook.Repository.Repositories
 
         private IEnumerable<Ingredient> ParseIngredient(dynamic rawRecipe)
             => ((string)rawRecipe.IngredientsList).Split(", ").Distinct()
-                                    .Select(x => new Ingredient
+                                    .Select(x =>
                                     {
-                                        Amount = int.Parse(x.Split(' ')[0]),
-                                        Unit = x.Split(' ')[1],
-                                        Name = x.Split(' ')[2]
-                                    });
+                                        var parts = x.Split(' ');
+                                        var amount = int.Parse(parts[0]);
+                                        var unit = parts[1];
+                                        var name = string.Join(' ', parts.Skip(2));
+                                        
+                                        return new Ingredient
+                                        {
+                                            Amount = amount,
+                                            Unit = unit,
+                                            Name = name 
+                                        };
+                                    })
                                     .OrderBy(x => x.Name);
         private async Task AttachTagsToRecipe(Recipe recipe, IDbConnection connection,
                                               CancellationToken token)

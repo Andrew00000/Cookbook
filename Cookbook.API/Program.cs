@@ -1,3 +1,4 @@
+using Cookbook.API.Controllers;
 using Cookbook.API.Mapping;
 using Cookbook.Application;
 using Cookbook.Repository.Repositories;
@@ -5,6 +6,14 @@ using Cookbook.Repository.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<JsonExceptionFilter>();
+});
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidationActionFilterAttribute>();
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Cookbook.Contracts.Responses;
 
-namespace Cookbook.API.Controllers
+namespace Cookbook.API.ErrorHandeling
 {
     public class JsonExceptionFilter : IExceptionFilter
     {
@@ -24,7 +24,7 @@ namespace Cookbook.API.Controllers
 
                 context.Result = new ObjectResult(validationFailureResponse)
                 {
-                    StatusCode = 400 
+                    StatusCode = 400
                 };
 
                 context.ExceptionHandled = true;

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Cookbook.API.Controllers
+namespace Cookbook.API.ErrorHandeling
 {
     public class ValidationActionFilterAttribute : ActionFilterAttribute
     {

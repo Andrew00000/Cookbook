@@ -9,11 +9,9 @@ var config = builder.Configuration;
 
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add<ValidationActionFilterAttribute>();
-    options.Filters.Add<JsonExceptionFilter>();
+    options.Filters.Add<ExceptionFilter>();
 });
 
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

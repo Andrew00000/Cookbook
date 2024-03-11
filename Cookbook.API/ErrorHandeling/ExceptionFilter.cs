@@ -5,19 +5,20 @@ using Cookbook.Contracts.Responses;
 
 namespace Cookbook.API.ErrorHandeling
 {
-    public class JsonExceptionFilter : IExceptionFilter
+    public class ExceptionFilter : IExceptionFilter
     {
         public void OnException(ExceptionContext context)
         {
             if (context.Exception is not null)
             {
+                var errorMessage = RemoveWhitespaceCharacters(context.Exception.Message);
                 var validationFailureResponse = new ValidationFailureResponse
                 {
                     Errors = new List<ValidationResponse>
                     {
                         new ValidationResponse
                         {
-                            Message = "Error deserializing JSON:" + context.Exception.Message
+                            Message = $"*sad noises*: {errorMessage}"
                         }
                     }
                 };
@@ -30,5 +31,8 @@ namespace Cookbook.API.ErrorHandeling
                 context.ExceptionHandled = true;
             }
         }
+
+        private string RemoveWhitespaceCharacters(string input)
+            => input.Replace("\r\n", string.Empty);
     }
 }

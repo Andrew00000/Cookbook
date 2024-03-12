@@ -10,9 +10,10 @@ namespace Cookbook.Repository.Repositories
     {
         private readonly IDbManipulator dbManipulator;
 
-        public RecipebookRepository(IDbManipulator dbManipulator)
+        public RecipebookRepository(IDbManipulator dbManipulator, IDbInitializer dbInitializer)
         {
             this.dbManipulator = dbManipulator;
+            dbInitializer.Initialize();
         }
 
         public async Task<bool> CreateAsync(Recipe recipe, CancellationToken token)

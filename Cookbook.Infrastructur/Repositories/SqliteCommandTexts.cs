@@ -1,9 +1,54 @@
 ﻿using Cookbook.Repository.Database.Schema;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Cookbook.Repository.Repositories
 {
     public static class SqliteCommandTexts
     {
+        public const string CreateRecipesTable = $@"
+                        CREATE TABLE ""{DbTables.Recipes}"" (
+	                                        ""{RecipesTable.Id}"" INTEGER NOT NULL UNIQUE,
+	                                        ""{RecipesTable.Title}"" TEXT NOT NULL,
+	                                        ""{RecipesTable.Author}"" TEXT NOT NULL,
+	                                        ""{RecipesTable.NumberOfPortions}""	INTEGER NOT NULL,
+	                                        ""{RecipesTable.Calories}""	INTEGER,
+	                                        ""{RecipesTable.Slug}""	TEXT NOT NULL UNIQUE,
+                                            PRIMARY KEY(""{RecipesTable.Id}"" AUTOINCREMENT))";
+
+
+        public const string CreateIngredientsTable = $@"
+                        CREATE TABLE ""{DbTables.Ingredients}"" (
+	                                        ""{IngredientsTable.RowId}"" INTEGER UNIQUE,
+	                                        ""{IngredientsTable.RecipeId}"" INTEGER,
+	                                        ""{IngredientsTable.Name}"" TEXT,
+	                                        ""{IngredientsTable.Amount}"" INTEGER,
+	                                        ""{IngredientsTable.Unit}""	TEXT,
+	                                        FOREIGN KEY(""{IngredientsTable.RecipeId}"") 
+                                            REFERENCES ""{DbTables.Recipes}""(""{IngredientsTable.RowId}"") ON DELETE CASCADE,
+	                                        PRIMARY KEY(""{IngredientsTable.RowId}"" AUTOINCREMENT))";
+
+        public const string CreateStepsTable = $@"
+                        CREATE TABLE ""{DbTables.Steps}"" (
+	                                        ""{StepsTable.RowId}""	INTEGER NOT NULL UNIQUE,
+	                                        ""{StepsTable.RecipeId}"" INTEGER NOT NULL,
+	                                        ""{StepsTable.Number}""	INTEGER NOT NULL,
+	                                        ""{StepsTable.Description}"" TEXT NOT NULL,
+	                                        FOREIGN KEY(""{StepsTable.RecipeId}"") 
+                                            REFERENCES ""{DbTables.Recipes}""(""{StepsTable.RowId}"") ON DELETE CASCADE,
+	                                        PRIMARY KEY(""{StepsTable.RowId}"" AUTOINCREMENT))";
+
+        public const string CreateTagsTable = $@"
+                        CREATE TABLE ""{DbTables.Tags}"" (
+	                                        ""{TagsTable.RowId}"" INTEGER NOT NULL UNIQUE,
+	                                        ""{TagsTable.RecipeId}"" INTEGER NOT NULL,
+	                                        ""{TagsTable.Description}""	TEXT NOT NULL,
+	                                        FOREIGN KEY(""{StepsTable.RecipeId}"") 
+                                            REFERENCES ""{DbTables.Recipes}""(""{TagsTable.RowId}"") ON DELETE CASCADE,
+	                                        PRIMARY KEY(""{TagsTable.RowId}"" AUTOINCREMENT))";
+
+        public const string CreateSlugIndex = $@"CREATE INDEX ""idx_slug"" 
+                                                    ON ""{DbTables.Recipes}"" (""{RecipesTable.Slug}"")";
+
         public const string Create = $@"
                         INSERT INTO {DbTables.Recipes} ({RecipesTable.Title}, {RecipesTable.Author}, 
                                                         {RecipesTable.NumberOfPortions}, {RecipesTable.Calories}, 

@@ -1,11 +1,9 @@
-﻿using Cookbook.Repository.Database;
-using Cookbook.Repository.Repositories;
+﻿using Cookbook.Repository.Repositories;
 using Dapper;
-using Microsoft.Data.Sqlite;
 
 namespace Cookbook.Repository.Database.Schema
 {
-    internal class DbInitializer :IDbInitializer
+    internal class DbInitializer : IDbInitializer
     {
         private readonly string dbFilePath;
         private readonly IDbManipulator dbManipulator;
@@ -20,9 +18,9 @@ namespace Cookbook.Repository.Database.Schema
         {
             if (!File.Exists(dbFilePath))
             {
-                using (File.Create(dbFilePath));
+                using (File.Create(dbFilePath)) ;
                 await dbManipulator.RunQuery(async connection =>
-                {    
+                {
                     await connection.ExecuteAsync(new CommandDefinition(SqliteCommandTexts.CreateRecipesTable));
 
                     await connection.ExecuteAsync(new CommandDefinition(SqliteCommandTexts.CreateIngredientsTable));

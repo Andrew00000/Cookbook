@@ -6,7 +6,7 @@ namespace Cookbook.Repository.Database
     internal class SqliteConnectionFactory : IDbConnectionFactory
     {
         private readonly DatabaseConfiguration databaseConfiguration;
-                    
+
         public SqliteConnectionFactory(DatabaseConfiguration databaseConfiguration)
         {
             this.databaseConfiguration = databaseConfiguration;

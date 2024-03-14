@@ -2,7 +2,7 @@
 
 namespace Cookbook.Contracts.Responses
 {
-     public class RecipeResponse
+    public class RecipeResponse
     {
         public required long Id { get; init; }
         public required string Title { get; init; }

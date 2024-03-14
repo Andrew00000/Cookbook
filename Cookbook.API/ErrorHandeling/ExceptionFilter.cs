@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Cookbook.Contracts.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Cookbook.Contracts.Responses;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cookbook.API.ErrorHandeling
 {

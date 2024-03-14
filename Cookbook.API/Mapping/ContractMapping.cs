@@ -52,6 +52,6 @@ namespace Cookbook.API.Mapping
         }
 
         public static RecipesResponse MapToResponse(this IEnumerable<Recipe> recipes)
-            => new(){ Recipes = recipes.Select(MapToResponse) };
+            => new() { Recipes = recipes.Select(MapToResponse) };
     }
 }

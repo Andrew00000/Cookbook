@@ -10,7 +10,7 @@ namespace Cookbook.Application.Validators //is this the right place for validato
         public RecipeValidator(IRecipebookRepository recipebookRepository)
         {
             this.recipebookRepository = recipebookRepository;
-            
+
             RuleFor(x => x.Title).NotEmpty();
             RuleFor(x => x.Author).NotEmpty();
             RuleFor(x => x.NumberOfPortions).GreaterThan(0)

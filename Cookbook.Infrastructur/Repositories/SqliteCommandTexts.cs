@@ -1,5 +1,4 @@
 ﻿using Cookbook.Repository.Database.Schema;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Cookbook.Repository.Repositories
 {
@@ -95,7 +94,7 @@ namespace Cookbook.Repository.Repositories
                                                                       {RecipesTable.NumberOfPortions} = @NumberOfPortions,
                                                                       {RecipesTable.Calories} = @Calories,
                                                                       {RecipesTable.Slug} = @Slug
-                                                                WHERE {RecipesTable.Id } = @Id";
+                                                                WHERE {RecipesTable.Id} = @Id";
 
         public const string DeleteById = $@"DELETE FROM {DbTables.Recipes} WHERE {RecipesTable.Id} = @id";
 
@@ -134,7 +133,7 @@ namespace Cookbook.Repository.Repositories
                         JOIN {DbTables.Steps} ON {DbTables.Recipes}.{RecipesTable.Id} = {DbTables.Steps}.{StepsTable.RecipeId}
                         JOIN {DbTables.Tags} ON {DbTables.Recipes}.{RecipesTable.Id} = {DbTables.Tags}.{TagsTable.RecipeId}";
 
-        private const string DefaultGroupBy = 
+        private const string DefaultGroupBy =
                      $@"GROUP BY {DbTables.Recipes}.{RecipesTable.Slug}, {DbTables.Recipes}.{RecipesTable.Title}, 
                                  {DbTables.Recipes}.{RecipesTable.Author}, {DbTables.Recipes}.{RecipesTable.NumberOfPortions},
                                  {DbTables.Recipes}.{RecipesTable.Calories}";

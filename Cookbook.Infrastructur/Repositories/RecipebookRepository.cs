@@ -72,7 +72,7 @@ namespace Cookbook.Repository.Repositories
             {
 
                 var rawRecipe = await connection.QuerySingleOrDefaultAsync(
-                            new CommandDefinition(SqliteCommandTexts.GetById, 
+                            new CommandDefinition(SqliteCommandTexts.GetById,
                                                   new { id }, cancellationToken: token));
 
                 if (rawRecipe is null)
@@ -90,7 +90,7 @@ namespace Cookbook.Repository.Repositories
             {
 
                 var rawRecipe = await connection.QuerySingleOrDefaultAsync(
-                            new CommandDefinition(SqliteCommandTexts.GetBySlug, 
+                            new CommandDefinition(SqliteCommandTexts.GetBySlug,
                                                   new { slug }, cancellationToken: token));
 
                 if (rawRecipe is null)
@@ -115,13 +115,13 @@ namespace Cookbook.Repository.Repositories
             }, token);
         }
 
-        public async Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag, 
+        public async Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag,
                                                              CancellationToken token)
         {
             return await dbManipulator.RunQuery(async connection =>
             {
                 var titles = await connection.QueryAsync<string>(
-                                new CommandDefinition(SqliteCommandTexts.GetAllTitlesWithTag, 
+                                new CommandDefinition(SqliteCommandTexts.GetAllTitlesWithTag,
                                                       new { tag }, cancellationToken: token));
 
                 if (titles is null)
@@ -162,7 +162,7 @@ namespace Cookbook.Repository.Repositories
                 using var transaction = connection.BeginTransaction();
 
                 var result = await connection.ExecuteAsync(new CommandDefinition(
-                                                SqliteCommandTexts.DeleteById, 
+                                                SqliteCommandTexts.DeleteById,
                                                 new { id },
                                                 cancellationToken: token));
 
@@ -178,7 +178,7 @@ namespace Cookbook.Repository.Repositories
                 using var transaction = connection.BeginTransaction();
 
                 var result = await connection.ExecuteAsync(new CommandDefinition(
-                                                SqliteCommandTexts.DeleteBySlug, 
+                                                SqliteCommandTexts.DeleteBySlug,
                                                 new { slug },
                                                 cancellationToken: token));
 
@@ -194,7 +194,7 @@ namespace Cookbook.Repository.Repositories
                 var rawId = await connection.QuerySingleOrDefaultAsync(
                        new CommandDefinition(SqliteCommandTexts.GetIdFromSlug,
                                              new { slug }, cancellationToken: token));
-                if(rawId is null)
+                if (rawId is null)
                 {
                     throw new ArgumentNullException("There is no recipe with that slug");
                 }
@@ -244,12 +244,12 @@ namespace Cookbook.Repository.Repositories
                                         var amount = int.Parse(parts[0]);
                                         var unit = parts[1];
                                         var name = string.Join(' ', parts.Skip(2));
-                                        
+
                                         return new Ingredient
                                         {
                                             Amount = amount,
                                             Unit = unit,
-                                            Name = name 
+                                            Name = name
                                         };
                                     })
                                     .OrderBy(x => x.Name);

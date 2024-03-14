@@ -6,7 +6,6 @@ using Cookbook.Repository.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
-
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ExceptionFilter>();

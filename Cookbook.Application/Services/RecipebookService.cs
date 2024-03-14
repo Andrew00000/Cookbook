@@ -15,7 +15,7 @@ namespace Cookbook.Application.Services
             this.recipebookRepository = recipebookRepository;
             this.recipeValidator = recipeValidator;
         }
-        
+
         public Task<IEnumerable<Recipe>> GetAllAsync(CancellationToken token)
             => recipebookRepository.GetAllAsync(token);
 

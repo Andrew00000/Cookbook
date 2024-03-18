@@ -1,15 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using System.Text.Json;
-using System.Text;
 using Identity.API.Requests;
-using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
+
+namespace Identity.API.Controllers;
 
 [ApiController]
 public class IdentityController : ControllerBase
 {
-    private const string TokenSecret = "KeepMeSafeImASecret";
+    private const string TokenSecret = "KeepMeSafeImASecretStoreMeInAVault";
     private static readonly TimeSpan TokenLifetime = TimeSpan.FromHours(8);
 
     [HttpPost("token")]

@@ -264,6 +264,34 @@
 			]
 		},
 		{
+			"name": "Token Generator",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userid\": \"d8566de3-b1a6-4a9b-b692-8e3887a82e41\",\r\n    \"email\": \"cook@book.com\",\r\n    \"customClaims\": {\r\n         \"admin\": true,\r\n         \"trusted_member\": true\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7330/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7330",
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Recipe",
 			"event": [
 				{

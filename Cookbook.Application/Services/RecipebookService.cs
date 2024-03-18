@@ -16,24 +16,24 @@ namespace Cookbook.Application.Services
             this.recipeValidator = recipeValidator;
         }
 
-        public Task<IEnumerable<Recipe>> GetAllAsync(CancellationToken token)
-            => recipebookRepository.GetAllAsync(token);
+        public async Task<IEnumerable<Recipe>> GetAllAsync(CancellationToken token)
+            => await recipebookRepository.GetAllAsync(token);
 
-        public Task<IEnumerable<string>> GetAllTitlesAsync(CancellationToken token)
-            => recipebookRepository.GetAllTitlesAsync(token);
+        public async Task<IEnumerable<string>> GetAllTitlesAsync(CancellationToken token)
+            => await recipebookRepository.GetAllTitlesAsync(token);
 
-        public Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag,
+        public async Task<IEnumerable<string>> GetAllTitlesWithTagAsync(string tag,
                                                        CancellationToken token)
-            => recipebookRepository.GetAllTitlesWithTagAsync(tag, token);
+            => await recipebookRepository.GetAllTitlesWithTagAsync(tag, token);
 
-        public Task<Recipe?> GetByIdAsync(long id, CancellationToken token)
-            => recipebookRepository.GetByIdAsync(id, token);
+        public async Task<Recipe?> GetByIdAsync(long id, CancellationToken token)
+            => await recipebookRepository.GetByIdAsync(id, token);
 
-        public Task<Recipe?> GetBySlugAsync(string slug, CancellationToken token)
-            => recipebookRepository.GetBySlugAsync(slug, token);
+        public async Task<Recipe?> GetBySlugAsync(string slug, CancellationToken token)
+            => await recipebookRepository.GetBySlugAsync(slug, token);
 
-        public Task<long> GetIdFromSlugAsync(string idOrSlug, CancellationToken token)
-            => recipebookRepository.GetIdFromSlugAsync(idOrSlug, token);
+        public async Task<long> GetIdFromSlugAsync(string idOrSlug, CancellationToken token)
+            => await recipebookRepository.GetIdFromSlugAsync(idOrSlug, token);
 
 
         public async Task<bool> CreateAsync(Recipe recipe, CancellationToken token)
@@ -57,10 +57,10 @@ namespace Cookbook.Application.Services
             return recipe;
         }
 
-        public Task<bool> DeleteByIdAsync(long id, CancellationToken token)
-            => recipebookRepository.DeleteByIdAsync(id, token);
+        public async Task<bool> DeleteByIdAsync(long id, CancellationToken token)
+            => await recipebookRepository.DeleteByIdAsync(id, token);
 
-        public Task<bool> DeleteBySlugAsync(string slug, CancellationToken token)
-            => recipebookRepository.DeleteBySlugAsync(slug, token);
+        public async Task<bool> DeleteBySlugAsync(string slug, CancellationToken token)
+            => await recipebookRepository.DeleteBySlugAsync(slug, token);
     }
 }

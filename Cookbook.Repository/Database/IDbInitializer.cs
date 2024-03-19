@@ -1,6 +1,8 @@
-﻿namespace Cookbook.Repository.Database
+﻿using Cookbook.Application.Utilities;
+
+namespace Cookbook.Repository.Database
 {
-    public interface IDbInitializer
+    public interface IDbInitializer : IInitializable
     {
         Task Initialize();
     }

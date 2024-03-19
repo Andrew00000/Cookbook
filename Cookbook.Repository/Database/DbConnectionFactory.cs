@@ -13,11 +13,6 @@ namespace Cookbook.Repository.Database
         }
 
         public async Task<IDbConnection> CreateConnectionAsync(CancellationToken token)
-        {
-            var connection = new SqliteConnection($"Data Source = {databaseConfiguration.Path}");
-            await connection.OpenAsync(token);
-
-            return connection;
-        }
+            => new SqliteConnection($"Data Source = {databaseConfiguration.Path}");
     }
 }

@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.API", "Cookbook.API\Cookbook.API.csproj", "{A23B4693-B571-4972-84FE-20180F944B00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.API", "Cookbook.API\Cookbook.API.csproj", "{A23B4693-B571-4972-84FE-20180F944B00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Application", "Cookbook.Application\Cookbook.Application.csproj", "{47C5393C-645C-4199-80A8-BA17D5FE8243}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Application", "Cookbook.Application\Cookbook.Application.csproj", "{47C5393C-645C-4199-80A8-BA17D5FE8243}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Domain", "Cookbook.Domain\Cookbook.Domain.csproj", "{03EC6962-770F-493D-A8B0-3B3BFE6CB477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Domain", "Cookbook.Domain\Cookbook.Domain.csproj", "{03EC6962-770F-493D-A8B0-3B3BFE6CB477}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Infrastructur", "Cookbook.Infrastructur\Cookbook.Infrastructur.csproj", "{78EAA4D4-5636-4A61-9655-262259EA521C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Repository", "Cookbook.Repository\Cookbook.Repository.csproj", "{78EAA4D4-5636-4A61-9655-262259EA521C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Contracts", "Cookbook.Contracts\Cookbook.Contracts.csproj", "{A7536ED0-7282-4D0E-80CD-A4C7F97C61D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Contracts", "Cookbook.Contracts\Cookbook.Contracts.csproj", "{A7536ED0-7282-4D0E-80CD-A4C7F97C61D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "Identity.API\Identity.API.csproj", "{EEA555DF-C184-4CDB-9F94-169FC2947C3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A7536ED0-7282-4D0E-80CD-A4C7F97C61D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7536ED0-7282-4D0E-80CD-A4C7F97C61D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7536ED0-7282-4D0E-80CD-A4C7F97C61D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEA555DF-C184-4CDB-9F94-169FC2947C3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA555DF-C184-4CDB-9F94-169FC2947C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA555DF-C184-4CDB-9F94-169FC2947C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA555DF-C184-4CDB-9F94-169FC2947C3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

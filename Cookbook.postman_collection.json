@@ -1,0 +1,2110 @@
+{
+	"info": {
+		"_postman_id": "9863e18b-1a56-4d4c-a8cd-3a580f5789fd",
+		"name": "Cookbook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27783986"
+	},
+	"item": [
+		{
+			"name": "Validation tests",
+			"item": [
+				{
+					"name": "Create Recipe Missing Title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"\",\r\n    \"author\": \"ValidationTest Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Title Wrong Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": 1,\r\n    \"author\": \"ValidationTest Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Missing Author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Missing NumberOfPortions negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": -1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Missing Ingredients",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Wrong Ingredients",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": \"one\", \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe Missing Steps",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ValidationTest Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token Generator",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userid\": \"d8566de3-b1a6-4a9b-b692-8e3887a82e41\",\r\n    \"email\": \"cook@book.com\",\r\n    \"customClaims\": {\r\n         \"admin\": true,\r\n         \"trusted_member\": true\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7330/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7330",
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Recipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"\r",
+							"    pm.expect(response).to.have.property('id');\r",
+							"    pm.expect(response.id).to.be.a('number');\r",
+							"    pm.expect(response.id % 1).to.equal(0); \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title should be Water\", () =>\r",
+							"{\r",
+							"    pm.expect(response.title).to.equal(\"Water\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Author should be Mother Nature\", () =>\r",
+							"{\r",
+							"    pm.expect(response.author).to.eql(\"Mother Nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Slug should be water-mother-nature\", () =>\r",
+							"{\r",
+							"    pm.expect(response.slug).to.eql(\"water-mother-nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of portions should be 1\", () =>\r",
+							"{\r",
+							"    pm.expect(response.numberOfPortions).to.eql(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of Calories should be 0\", () =>\r",
+							"{\r",
+							"    pm.expect(response.calories).to.eql(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have int as amount\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as unit\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as name\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First ingredient should be 1 l water\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('l');\r",
+							"    pm.expect(ingredients[0].name).to.equal('water');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Steps should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.steps).to.be.an('array');\r",
+							"\r",
+							"    response.steps.forEach((step) => {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be in correct order with correct values\", () => {\r",
+							"    const steps = response.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Open tap');\r",
+							"    pm.expect(steps[1]).to.equal('Lean in');\r",
+							"    pm.expect(steps[2]).to.equal('Drink from the tap');\r",
+							"    pm.expect(steps[3]).to.equal('Lean out');\r",
+							"    pm.expect(steps[4]).to.equal('Close tap');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.tags).to.be.an('array');\r",
+							"\r",
+							"    response.tags.forEach((tag) => {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be in correct order with correct values\", () => {\r",
+							"    const tags = response.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(tags[0]).to.equal('nocalories');\r",
+							"    pm.expect(tags[1]).to.equal('fishy');\r",
+							"    pm.expect(tags[2]).to.equal('easy');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Water\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Fishy\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"water\"}],\r\n    \"steps\": [\"Open tap\", \"Lean in\", \"Drink from the tap\", \"Lean out\", \"Close tap\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}",
+					"host": [
+						"{{BaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Recipe2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"\r",
+							"    pm.expect(response).to.have.property('id');\r",
+							"    pm.expect(response.id).to.be.a('number');\r",
+							"    pm.expect(response.id % 1).to.equal(0); \r",
+							"});\r",
+							"\r",
+							"pm.globals.set(\"recipeIDAir\", response.id);\r",
+							"\r",
+							"pm.test(\"Title should be Air\", () =>\r",
+							"{\r",
+							"    pm.expect(response.title).to.equal(\"Air\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Author should be Mother Nature\", () =>\r",
+							"{\r",
+							"    pm.expect(response.author).to.eql(\"Mother Nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Slug should be air-mother-nature\", () =>\r",
+							"{\r",
+							"    pm.expect(response.slug).to.eql(\"air-mother-nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of portions should be 1\", () =>\r",
+							"{\r",
+							"    pm.expect(response.numberOfPortions).to.eql(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of Calories should be 0\", () =>\r",
+							"{\r",
+							"    pm.expect(response.calories).to.eql(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have int as amount\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as unit\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as name\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First ingredient should be 1 l air\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('l');\r",
+							"    pm.expect(ingredients[0].name).to.equal('air');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Steps should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.steps).to.be.an('array');\r",
+							"\r",
+							"    response.steps.forEach((step) => {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be in correct order with correct values\", () => {\r",
+							"    const steps = response.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Inhale');\r",
+							"    pm.expect(steps[1]).to.equal('Exhale');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.tags).to.be.an('array');\r",
+							"\r",
+							"    response.tags.forEach((tag) => {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be in correct order with correct values\", () => {\r",
+							"    const tags = response.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(tags[0]).to.equal('nocalories');\r",
+							"    pm.expect(tags[1]).to.equal('easy');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Air\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"air\"}],\r\n    \"steps\": [\"Inhale\", \"Exhale\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}",
+					"host": [
+						"{{BaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Recipe3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"\r",
+							"    pm.expect(response).to.have.property('id');\r",
+							"    pm.expect(response.id).to.be.a('number');\r",
+							"    pm.expect(response.id % 1).to.equal(0); \r",
+							"});\r",
+							"\r",
+							"pm.globals.set(\"recipeIDBolognese\", response.id);\r",
+							"\r",
+							"pm.test(\"Title should be Spaghetti Bolognese\", () =>\r",
+							"{\r",
+							"    pm.expect(response.title).to.equal(\"Spaghetti Bolognese\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Author should be John Doe\", () =>\r",
+							"{\r",
+							"    pm.expect(response.author).to.eql(\"John Doe\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Slug should be spaghetti-bolognese-john-doe\", () =>\r",
+							"{\r",
+							"    pm.expect(response.slug).to.eql(\"spaghetti-bolognese-john-doe\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of portions should be 4\", () =>\r",
+							"{\r",
+							"    pm.expect(response.numberOfPortions).to.eql(4);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of Calories should be 520\", () =>\r",
+							"{\r",
+							"    pm.expect(response.calories).to.eql(520);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have int as amount\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as unit\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as name\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First ingredient should be 500 g Ground beef\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(500);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('g');\r",
+							"    pm.expect(ingredients[0].name).to.equal('Ground Beef');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Second ingredient should be 1 piece Onion\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[1].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[1].unit).to.equal('piece');\r",
+							"    pm.expect(ingredients[1].name).to.equal('Onion');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Third ingredient should be 2 gloves Garlic\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[2].amount).to.equal(2);\r",
+							"    pm.expect(ingredients[2].unit).to.equal('cloves');\r",
+							"    pm.expect(ingredients[2].name).to.equal('Garlic');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.steps).to.be.an('array');\r",
+							"\r",
+							"    response.steps.forEach((step) => {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be in correct order with correct values\", () => {\r",
+							"    const steps = response.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Heat olive oil in a pan');\r",
+							"    pm.expect(steps[1]).to.equal('Saute onions and garlic until softened');\r",
+							"    pm.expect(steps[2]).to.equal('Add ground beef and cook until browned');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.tags).to.be.an('array');\r",
+							"\r",
+							"    response.tags.forEach((tag) => {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be in correct order with correct values\", () => {\r",
+							"    const tags = response.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(tags[0]).to.equal('italian');\r",
+							"    pm.expect(tags[1]).to.equal('pasta');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Spaghetti Bolognese\",\r\n    \"author\": \"John Doe\",\r\n    \"numberofportions\": 4,\r\n    \"calories\" : 520,\r\n    \"tags\": [ \"Italian\", \"Pasta\"],\r\n    \"ingredients\":  [\r\n    {\r\n      \"amount\": 500,\r\n      \"unit\": \"g\",\r\n      \"name\": \"Ground Beef\"\r\n    },\r\n    {\r\n      \"amount\": 1,\r\n      \"unit\": \"piece\",\r\n      \"name\": \"Onion\"\r\n    },\r\n    {\r\n      \"amount\": 2,\r\n      \"unit\": \"cloves\",\r\n      \"name\": \"Garlic\"\r\n    }],\r\n    \"steps\": [\"Heat olive oil in a pan\", \"Saute onions and garlic until softened\", \"Add ground beef and cook until browned\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}",
+					"host": [
+						"{{BaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Recipes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json().recipes;\r",
+							"\r",
+							"pm.test(\"Response should be an array of recipes with Air, Spaghetti Bolognese and Water\", () => \r",
+							"{\r",
+							"    pm.expect(response).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(response[0].title).to.equal('Air');\r",
+							"    pm.expect(response[1].title).to.equal('Spaghetti Bolognese');\r",
+							"    pm.expect(response[2].title).to.equal('Water');\r",
+							"});\r",
+							"\r",
+							"var air = response[0];\r",
+							"var spaghetti = response[1];\r",
+							"var water = response[2];\r",
+							"\r",
+							"pm.test(\"AIR:Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"    pm.expect(air).to.have.property('id');\r",
+							"    pm.expect(air.id).to.be.a('number');\r",
+							"    pm.expect(air.id % 1).to.equal(0); \r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Id should be correct\", () =>\r",
+							"{\r",
+							"    var id = pm.globals.get(\"recipeIDAir\");\r",
+							"    pm.expect(air.id).to.eql(id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Title should be Air\", () =>\r",
+							"{\r",
+							"    pm.expect(air.title).to.equal(\"Air\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Author should be Mother Nature\", () =>\r",
+							"{\r",
+							"    pm.expect(air.author).to.eql(\"Mother Nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Slug should be air-mother-nature\", () =>\r",
+							"{\r",
+							"    pm.expect(air.slug).to.eql(\"air-mother-nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Number of portions should be 1\", () =>\r",
+							"{\r",
+							"    pm.expect(air.numberOfPortions).to.eql(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Number of Calories should be 0\", () =>\r",
+							"{\r",
+							"    pm.expect(air.calories).to.eql(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Ingredient should have int as amount\", () => \r",
+							"{\r",
+							"    const ingredients = air.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => \r",
+							"    {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Ingredient should have string as unit\", () => \r",
+							"{\r",
+							"    const ingredients = air.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => \r",
+							"    {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Ingredient should have string as name\", () => \r",
+							"{\r",
+							"    const ingredients = air.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => \r",
+							"    {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:First ingredient should be 1 l air\", () => \r",
+							"{\r",
+							"    const ingredients = air.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('l');\r",
+							"    pm.expect(ingredients[0].name).to.equal('air');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"AIR:Steps should be a string array\", () => \r",
+							"{\r",
+							"    pm.expect(air.steps).to.be.an('array');\r",
+							"\r",
+							"    air.steps.forEach((step) => \r",
+							"    {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Steps should be in correct order with correct values\", () => \r",
+							"{\r",
+							"    const steps = air.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Inhale');\r",
+							"    pm.expect(steps[1]).to.equal('Exhale');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Tags should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(air.tags).to.be.an('array');\r",
+							"\r",
+							"    air.tags.forEach((tag) => \r",
+							"    {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"AIR:Tags should have all the tags\", () => \r",
+							"{\r",
+							"    const tags = air.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    const expectedTags = [\"easy\", \"nocalories\"];\r",
+							"    pm.expect(tags).to.include.members(expectedTags);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"    pm.expect(spaghetti).to.have.property('id');\r",
+							"    pm.expect(spaghetti.id).to.be.a('number');\r",
+							"    pm.expect(spaghetti.id % 1).to.equal(0); \r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Id should be correct\", () =>\r",
+							"{\r",
+							"    var id = pm.globals.get(\"recipeIDBolognese\");\r",
+							"    pm.expect(spaghetti.id).to.eql(id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Title should be Spaghetti Bolognese\", () =>\r",
+							"{\r",
+							"    pm.expect(spaghetti.title).to.equal(\"Spaghetti Bolognese\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Author should be John Doe\", () =>\r",
+							"{\r",
+							"    pm.expect(spaghetti.author).to.eql(\"John Doe\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Slug should be spaghetti-bolognese-john-doe\", () =>\r",
+							"{\r",
+							"    pm.expect(spaghetti.slug).to.eql(\"spaghetti-bolognese-john-doe\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Number of portions should be 4\", () =>\r",
+							"{\r",
+							"    pm.expect(spaghetti.numberOfPortions).to.eql(4);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Number of portions should be 4\", () =>\r",
+							"{\r",
+							"    pm.expect(spaghetti.calories).to.eql(520);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Ingredient should have int as amount\", () => \r",
+							"{\r",
+							"    const ingredients = spaghetti.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => \r",
+							"    {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Ingredient should have string as unit\", () => \r",
+							"{\r",
+							"    const ingredients = spaghetti.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => \r",
+							"    {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Ingredient should have string as name\", () => \r",
+							"{\r",
+							"    const ingredients = spaghetti.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => \r",
+							"    {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:First ingredient should be 2 gloves Garlic\", () => {\r",
+							"    const ingredients = spaghetti.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(2);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('cloves');\r",
+							"    pm.expect(ingredients[0].name).to.equal('Garlic');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Second ingredient should be 500 g Ground beef\", () => {\r",
+							"    const ingredients = spaghetti.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"\r",
+							"    pm.expect(ingredients[1].amount).to.equal(500);\r",
+							"    pm.expect(ingredients[1].unit).to.equal('g');\r",
+							"    pm.expect(ingredients[1].name).to.equal('Ground Beef');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Third ingredient should be 1 piece Onion\", () => {\r",
+							"    const ingredients = spaghetti.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[2].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[2].unit).to.equal('piece');\r",
+							"    pm.expect(ingredients[2].name).to.equal('Onion');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Steps should be a string array\", () => \r",
+							"{\r",
+							"\r",
+							"    pm.expect(spaghetti.steps).to.be.an('array');\r",
+							"\r",
+							"    spaghetti.steps.forEach((step) => \r",
+							"    {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Steps should be in correct order with correct values\", () => \r",
+							"{\r",
+							"    const steps = spaghetti.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Heat olive oil in a pan');\r",
+							"    pm.expect(steps[1]).to.equal('Saute onions and garlic until softened');\r",
+							"    pm.expect(steps[2]).to.equal('Add ground beef and cook until browned');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Tags should be a string array\", () => \r",
+							"{\r",
+							"\r",
+							"    pm.expect(spaghetti.tags).to.be.an('array');\r",
+							"\r",
+							"    spaghetti.tags.forEach((tag) => \r",
+							"    {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"SPAGHETTI:Tags should have all the tags\", () => \r",
+							"{\r",
+							"    const tags = spaghetti.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    const expectedTags = [\"italian\", \"pasta\"];\r",
+							"    pm.expect(tags).to.include.members(expectedTags);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"WATER:Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"    pm.expect(water).to.have.property('id');\r",
+							"    pm.expect(water.id).to.be.a('number');\r",
+							"    pm.expect(water.id % 1).to.equal(0); \r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Title should be Water\", () =>\r",
+							"{\r",
+							"    pm.expect(water.title).to.equal(\"Water\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Author should be Mother Nature\", () =>\r",
+							"{\r",
+							"    pm.expect(water.author).to.eql(\"Mother Nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Slug should be water-mother-nature\", () =>\r",
+							"{\r",
+							"    pm.expect(water.slug).to.eql(\"water-mother-nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Number of portions should be 1\", () =>\r",
+							"{\r",
+							"    pm.expect(water.numberOfPortions).to.eql(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Number of Calories should be 0\", () =>\r",
+							"{\r",
+							"    pm.expect(water.calories).to.eql(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Ingredient should have int as amount\", () => \r",
+							"{\r",
+							"    const ingredients = water.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => \r",
+							"    {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Ingredient should have string as unit\", () => \r",
+							"{\r",
+							"    const ingredients = water.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => \r",
+							"    {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Ingredient should have string as name\", () => \r",
+							"{\r",
+							"    const ingredients = water.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => \r",
+							"    {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:First ingredient should be 1 l water\", () => \r",
+							"{\r",
+							"    const ingredients = water.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('l');\r",
+							"    pm.expect(ingredients[0].name).to.equal('water');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"WATER:Steps should be a string array\", () => \r",
+							"{\r",
+							"    pm.expect(water.steps).to.be.an('array');\r",
+							"\r",
+							"    water.steps.forEach((step) => \r",
+							"    {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Steps should be in correct order with correct values\", () => \r",
+							"{\r",
+							"    const steps = water.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Open tap');\r",
+							"    pm.expect(steps[1]).to.equal('Lean in');\r",
+							"    pm.expect(steps[2]).to.equal('Drink from the tap');\r",
+							"    pm.expect(steps[3]).to.equal('Lean out');\r",
+							"    pm.expect(steps[4]).to.equal('Close tap');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Tags should be a string array\", () => \r",
+							"{\r",
+							"    pm.expect(water.tags).to.be.an('array');\r",
+							"\r",
+							"    water.tags.forEach((tag) => \r",
+							"    {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"WATER:Tags should have all the tags\", () => \r",
+							"{\r",
+							"    const tags = water.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    const expectedTags = [\"easy\", \"fishy\", \"nocalories\"];\r",
+							"    pm.expect(tags).to.include.members(expectedTags);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}",
+					"host": [
+						"{{BaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Recipe Titles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response should be an array with Air, Spaghetti Bolognese and Water\", () => \r",
+							"{\r",
+							"    pm.expect(response).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(response[0]).to.equal('Air');\r",
+							"    pm.expect(response[1]).to.equal('Spaghetti Bolognese');\r",
+							"    pm.expect(response[2]).to.equal('Water');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/titles",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"titles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Titles with tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response should be an array with Air and Water\", () => {\r",
+							"\r",
+							"\r",
+							"    pm.expect(response).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(response[0]).to.equal('Air');\r",
+							"    pm.expect(response[1]).to.equal('Water');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/titles/tags/easy",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"titles",
+						"tags",
+						"easy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"\r",
+							"    pm.expect(response).to.have.property('id');\r",
+							"    pm.expect(response.id).to.be.a('number');\r",
+							"    pm.expect(response.id % 1).to.equal(0); \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id should be correct\", () =>\r",
+							"{\r",
+							"    var id = pm.globals.get(\"recipeIDBolognese\");\r",
+							"    pm.expect(response.id).to.eql(id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title should be Spaghetti Bolognese\", () =>\r",
+							"{\r",
+							"    pm.expect(response.title).to.equal(\"Spaghetti Bolognese\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Author should be John Doe\", () =>\r",
+							"{\r",
+							"    pm.expect(response.author).to.eql(\"John Doe\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Slug should be spaghetti-bolognese-john-doe\", () =>\r",
+							"{\r",
+							"    pm.expect(response.slug).to.eql(\"spaghetti-bolognese-john-doe\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of portions should be 4\", () =>\r",
+							"{\r",
+							"    pm.expect(response.numberOfPortions).to.eql(4);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of portions should be 4\", () =>\r",
+							"{\r",
+							"    pm.expect(response.calories).to.eql(520);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have int as amount\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as unit\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as name\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First ingredient should be 2 gloves Garlic\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(2);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('cloves');\r",
+							"    pm.expect(ingredients[0].name).to.equal('Garlic');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Second ingredient should be 500 g Ground beef\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"\r",
+							"    pm.expect(ingredients[1].amount).to.equal(500);\r",
+							"    pm.expect(ingredients[1].unit).to.equal('g');\r",
+							"    pm.expect(ingredients[1].name).to.equal('Ground Beef');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Third ingredient should be 1 piece Onion\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[2].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[2].unit).to.equal('piece');\r",
+							"    pm.expect(ingredients[2].name).to.equal('Onion');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.steps).to.be.an('array');\r",
+							"\r",
+							"    response.steps.forEach((step) => {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be in correct order with correct values\", () => {\r",
+							"    const steps = response.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Heat olive oil in a pan');\r",
+							"    pm.expect(steps[1]).to.equal('Saute onions and garlic until softened');\r",
+							"    pm.expect(steps[2]).to.equal('Add ground beef and cook until browned');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.tags).to.be.an('array');\r",
+							"\r",
+							"    response.tags.forEach((tag) => {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be in correct order with correct values\", () => {\r",
+							"    const tags = response.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(tags[0]).to.equal('italian');\r",
+							"    pm.expect(tags[1]).to.equal('pasta');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/:recipeID",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						":recipeID"
+					],
+					"variable": [
+						{
+							"key": "recipeID",
+							"value": "{{recipeIDBolognese}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe By Slug",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"\r",
+							"    pm.expect(response).to.have.property('id');\r",
+							"    pm.expect(response.id).to.be.a('number');\r",
+							"    pm.expect(response.id % 1).to.equal(0); \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id should be correct\", () =>\r",
+							"{\r",
+							"    var id = pm.globals.get(\"recipeIDBolognese\");\r",
+							"    pm.expect(response.id).to.eql(id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title should be Spaghetti Bolognese\", () =>\r",
+							"{\r",
+							"    pm.expect(response.title).to.equal(\"Spaghetti Bolognese\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Author should be John Doe\", () =>\r",
+							"{\r",
+							"    pm.expect(response.author).to.eql(\"John Doe\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Slug should be spaghetti-bolognese-john-doe\", () =>\r",
+							"{\r",
+							"    pm.expect(response.slug).to.eql(\"spaghetti-bolognese-john-doe\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of portions should be 4\", () =>\r",
+							"{\r",
+							"    pm.expect(response.numberOfPortions).to.eql(4);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of portions should be 4\", () =>\r",
+							"{\r",
+							"    pm.expect(response.calories).to.eql(520);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have int as amount\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as unit\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as name\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First ingredient should be 2 gloves Garlic\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(2);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('cloves');\r",
+							"    pm.expect(ingredients[0].name).to.equal('Garlic');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Second ingredient should be 500 g Ground beef\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"\r",
+							"    pm.expect(ingredients[1].amount).to.equal(500);\r",
+							"    pm.expect(ingredients[1].unit).to.equal('g');\r",
+							"    pm.expect(ingredients[1].name).to.equal('Ground Beef');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Third ingredient should be 1 piece Onion\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[2].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[2].unit).to.equal('piece');\r",
+							"    pm.expect(ingredients[2].name).to.equal('Onion');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.steps).to.be.an('array');\r",
+							"\r",
+							"    response.steps.forEach((step) => {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be in correct order with correct values\", () => {\r",
+							"    const steps = response.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Heat olive oil in a pan');\r",
+							"    pm.expect(steps[1]).to.equal('Saute onions and garlic until softened');\r",
+							"    pm.expect(steps[2]).to.equal('Add ground beef and cook until browned');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.tags).to.be.an('array');\r",
+							"\r",
+							"    response.tags.forEach((tag) => {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be in correct order with correct values\", () => {\r",
+							"    const tags = response.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(tags[0]).to.equal('italian');\r",
+							"    pm.expect(tags[1]).to.equal('pasta');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/spaghetti-bolognese-john-doe",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"spaghetti-bolognese-john-doe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"\r",
+							"    pm.expect(response).to.have.property('id');\r",
+							"    pm.expect(response.id).to.be.a('number');\r",
+							"    pm.expect(response.id % 1).to.equal(0); \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id should be correct\", () =>\r",
+							"{\r",
+							"    var id = pm.globals.get(\"recipeIDAir\");\r",
+							"    pm.expect(response.id).to.eql(id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title should be Grass\", () =>\r",
+							"{\r",
+							"    pm.expect(response.title).to.equal(\"Grass\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Author should be Father Nature\", () =>\r",
+							"{\r",
+							"    pm.expect(response.author).to.eql(\"Father Nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Slug should be grass-father-nature\", () =>\r",
+							"{\r",
+							"    pm.expect(response.slug).to.eql(\"grass-father-nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of portions should be 5\", () =>\r",
+							"{\r",
+							"    pm.expect(response.numberOfPortions).to.eql(5);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of Calories should be 666\", () =>\r",
+							"{\r",
+							"    pm.expect(response.calories).to.eql(666);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have int as amount\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as unit\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as name\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First ingredient should be 1 kg grass\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('kg');\r",
+							"    pm.expect(ingredients[0].name).to.equal('grass');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Steps should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.steps).to.be.an('array');\r",
+							"\r",
+							"    response.steps.forEach((step) => {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be in correct order with correct values\", () => {\r",
+							"    const steps = response.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Eat grass');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.tags).to.be.an('array');\r",
+							"\r",
+							"    response.tags.forEach((tag) => {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be in correct order with correct values\", () => {\r",
+							"    const tags = response.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(tags[0]).to.equal('earthy');\r",
+							"    pm.expect(tags[1]).to.equal('green');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Grass\",\r\n    \"author\": \"Father Nature\",\r\n    \"numberofportions\": 5,\r\n    \"calories\" : 666,\r\n    \"tags\": [ \"Earthy\", \"Green\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"kg\", \"name\":\"grass\"}],\r\n    \"steps\": [\"Eat grass\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/:recipeIDAir",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						":recipeIDAir"
+					],
+					"variable": [
+						{
+							"key": "recipeIDAir",
+							"value": "{{recipeIDAir}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe By Slug",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check if 'id' value is an integer\", () => \r",
+							"{\r",
+							"\r",
+							"    pm.expect(response).to.have.property('id');\r",
+							"    pm.expect(response.id).to.be.a('number');\r",
+							"    pm.expect(response.id % 1).to.equal(0); \r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Id should be correct\", () =>\r",
+							"{\r",
+							"    var id = pm.globals.get(\"recipeIDAir\");\r",
+							"    pm.expect(response.id).to.eql(id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title should be Air\", () =>\r",
+							"{\r",
+							"    pm.expect(response.title).to.equal(\"Air\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Author should be Mother Nature\", () =>\r",
+							"{\r",
+							"    pm.expect(response.author).to.eql(\"Mother Nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Slug should be air-mother-nature\", () =>\r",
+							"{\r",
+							"    pm.expect(response.slug).to.eql(\"air-mother-nature\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of portions should be 1\", () =>\r",
+							"{\r",
+							"    pm.expect(response.numberOfPortions).to.eql(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Number of Calories should be 0\", () =>\r",
+							"{\r",
+							"    pm.expect(response.calories).to.eql(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have int as amount\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('amount');\r",
+							"        pm.expect(ingredient.amount).to.be.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as unit\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('unit');\r",
+							"        pm.expect(ingredient.unit).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Ingredient should have string as name\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    ingredients.forEach((ingredient) => {\r",
+							"        pm.expect(ingredient).to.have.property('name');\r",
+							"        pm.expect(ingredient.name).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First ingredient should be 1 l air\", () => {\r",
+							"    const ingredients = response.ingredients;\r",
+							"\r",
+							"    pm.expect(ingredients).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(ingredients[0].amount).to.equal(1);\r",
+							"    pm.expect(ingredients[0].unit).to.equal('l');\r",
+							"    pm.expect(ingredients[0].name).to.equal('air');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Steps should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.steps).to.be.an('array');\r",
+							"\r",
+							"    response.steps.forEach((step) => {\r",
+							"        pm.expect(step).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Steps should be in correct order with correct values\", () => {\r",
+							"    const steps = response.steps;\r",
+							"\r",
+							"    pm.expect(steps).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(steps[0]).to.equal('Inhale');\r",
+							"    pm.expect(steps[1]).to.equal('Exhale');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be a string array\", () => {\r",
+							"\r",
+							"    pm.expect(response.tags).to.be.an('array');\r",
+							"\r",
+							"    response.tags.forEach((tag) => {\r",
+							"        pm.expect(tag).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tags should be in correct order with correct values\", () => {\r",
+							"    const tags = response.tags;\r",
+							"\r",
+							"    pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(tags[0]).to.equal('nocalories');\r",
+							"    pm.expect(tags[1]).to.equal('easy');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Air\",\r\n    \"author\": \"Mother Nature\",\r\n    \"numberofportions\": 1,\r\n    \"calories\" : 0,\r\n    \"tags\": [ \"NoCalories\", \"Easy\"],\r\n    \"ingredients\": [{\"amount\": 1, \"unit\": \"l\", \"name\": \"air\"}],\r\n    \"steps\": [\"Inhale\", \"Exhale\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/grass-father-nature",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"grass-father-nature"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete By ID (Bolognese)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/:recipeID",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						":recipeID"
+					],
+					"variable": [
+						{
+							"key": "recipeID",
+							"value": "{{recipeIDBolognese}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete By Slug (Water)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/water-mother-nature",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"water-mother-nature"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete By Slug (Air)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/air-mother-nature",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"air-mother-nature"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": "https://localhost:7139/api/recipes"
+		}
+	]
+}

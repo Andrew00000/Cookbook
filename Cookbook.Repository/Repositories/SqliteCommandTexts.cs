@@ -79,6 +79,24 @@ namespace Cookbook.Repository.Repositories
                                             WHERE {DbTables.Recipes}.{RecipesTable.Id} = @id
                                             {DefaultGroupBy}";
 
+        public const string GetByIdRecipes = $@"SELECT * FROM {DbTables.Recipes} 
+                                                WHERE {DbTables.Recipes}.{RecipesTable.Id} = @id";
+
+        public const string GetByIdIngredients = $@"SELECT {DbTables.Ingredients}.{IngredientsTable.Amount}, 
+                                                           {DbTables.Ingredients}.{IngredientsTable.Unit}, 
+                                                           {DbTables.Ingredients}.{IngredientsTable.Name} 
+                                                      FROM {DbTables.Ingredients}
+                                                     WHERE {DbTables.Ingredients}.{IngredientsTable.RecipeId} = @id";
+
+        public const string GetByIdSteps = $@"SELECT {DbTables.Steps}.{StepsTable.Number}, {DbTables.Steps}.{StepsTable.Description}
+                                                      FROM {DbTables.Steps}
+                                                     WHERE {DbTables.Steps}.{StepsTable.RecipeId} = @id";
+
+        public const string GetByIdTags = $@"SELECT {DbTables.Tags}.{TagsTable.Description}
+                                                      FROM {DbTables.Tags}
+                                                     WHERE {DbTables.Tags}.{TagsTable.RecipeId} = @id";
+
+
         public const string GetAllTitles = $@"SELECT {DbTables.Recipes}.{RecipesTable.Title} FROM {DbTables.Recipes}";
 
         public const string GetAllTitlesWithTag = $@"SELECT {DbTables.Recipes}.{RecipesTable.Title} 

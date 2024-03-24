@@ -10,18 +10,17 @@ namespace Cookbook.API.Mapping
         {
             return new Recipe
             {
-                Id = Guid.NewGuid(),
                 Title = request.Title,
                 Author = request.Author,
                 Tags = request.Tags.Select(x => x.ToLower()),
                 NumberOfPortions = request.NumberOfPortions,
                 Calories = request.Calories,
-                Ingredients = request.Ingredients.Select(MapToIngredient),
+                Ingredients = request.Ingredients,
                 Steps = request.Steps,
             };
         }
 
-        public static Recipe MapToRecipe(this UpdateRecipeRequest request, Guid id)
+        public static Recipe MapToRecipe(this UpdateRecipeRequest request, long id)
         {
             return new Recipe
             {
@@ -31,7 +30,7 @@ namespace Cookbook.API.Mapping
                 Tags = request.Tags.Select(x => x.ToLower()),
                 NumberOfPortions = request.NumberOfPortions,
                 Calories = request.Calories,
-                Ingredients = request.Ingredients.Select(MapToIngredient),
+                Ingredients = request.Ingredients,
                 Steps = request.Steps,
             };
         }
@@ -46,37 +45,13 @@ namespace Cookbook.API.Mapping
                 Tags = recipe.Tags,
                 NumberOfPortions = recipe.NumberOfPortions,
                 Calories = recipe.Calories,
-                Ingredients = recipe.Ingredients.Select(IngredientToString),
+                Ingredients = recipe.Ingredients,
                 Steps = recipe.Steps,
                 Slug = recipe.Slug
             };
         }
 
         public static RecipesResponse MapToResponse(this IEnumerable<Recipe> recipes)
-            => new(){ Recipes = recipes.Select(MapToResponse) };
-
-        private static Ingredient MapToIngredient(string rawIngredient) //figure out validation so I send back a pretty msg like with recipes
-        {
-            var splitIngredient = rawIngredient.Split(' ');
-            var amount = int.Parse(splitIngredient[0]);
-            var name = splitIngredient[2];
-            if (Enum.TryParse<UnitType>(splitIngredient[1], ignoreCase: true, out UnitType unit))
-            {
-                return new Ingredient
-                {
-                    Amount = amount,
-                    Unit = unit,
-                    Name = name
-                }
-                ;
-            }
-            else
-            {
-                throw new ArgumentException($"Invalid ingredient: {rawIngredient}");
-            }
-        }
-
-        private static string IngredientToString(Ingredient ingredient)
-            => $"{ingredient.Amount} {ingredient.Unit} {ingredient.Name}";
+            => new() { Recipes = recipes.Select(MapToResponse) };
     }
 }

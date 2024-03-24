@@ -7,14 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Cookbook.Application\Cookbook.Application.csproj" />
     <ProjectReference Include="..\Cookbook.Contracts\Cookbook.Contracts.csproj" />
-    <ProjectReference Include="..\Cookbook.Infrastructur\Cookbook.Infrastructur.csproj" />
+    <ProjectReference Include="..\Cookbook.Repository\Cookbook.Repository.csproj" />
   </ItemGroup>
 
 </Project>

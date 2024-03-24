@@ -10,26 +10,20 @@ namespace Cookbook.Application.Validators //is this the right place for validato
         public RecipeValidator(IRecipebookRepository recipebookRepository)
         {
             this.recipebookRepository = recipebookRepository;
-            
+
             RuleFor(x => x.Title).NotEmpty();
-
             RuleFor(x => x.Author).NotEmpty();
-
             RuleFor(x => x.NumberOfPortions).GreaterThan(0)
                     .WithMessage("Number of portions have to be larger than 0");
-
             RuleFor(x => x.Ingredients).NotEmpty();
-
             RuleFor(x => x.Steps).NotEmpty();
-
             RuleFor(x => x.Slug)
                     .MustAsync(ValidateSlug)
                     .WithMessage("This recipe already exiests. :(");
-
         }
 
         private async Task<bool> ValidateSlug(Recipe recipe, string slug,
-                                              CancellationToken token = default)
+                                              CancellationToken token)
         {
             var existingRecipe = await recipebookRepository.GetBySlugAsync(slug, token);
 
